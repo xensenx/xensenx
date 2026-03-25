@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>Admin Panel | xensenx</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav class="nav scrolled" role="navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        <div class="nav__logo-mark">Xs</div>
+        <span class="nav__logo-text">xensenx</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <span class="tag" style="font-size:0.7rem;">⚡ Admin Panel</span>
+        <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">
+          {{ADMIN_NAME}}
+        </span>
+        <form action="/api/auth/logout" method="POST" style="margin:0;">
+          <button type="submit" class="btn btn--ghost" style="padding:0.4rem 1rem;font-size:0.8rem;">
+            Logout
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <main class="admin-main" style="padding-top:var(--nav-h);position:relative;z-index:1;">
+
+    <!-- ── HEADER ────────────────────────────────────────── -->
+    <header class="admin-header">
+      <div class="container">
+        <div class="section-label animate-fade-up"><span>Owner Panel</span></div>
+        <h1 class="admin-header__title animate-fade-up">Access Management</h1>
+        <p class="admin-header__sub animate-fade-up delay-1">
+          Grant, revoke, and monitor private section access tokens.
+          Changes require a Worker redeploy unless KV is enabled.
+        </p>
+      </div>
+    </header>
+
+    <!-- ── STATS ROW ─────────────────────────────────────── -->
+    <section class="admin-stats-row">
+      <div class="container">
+        <div class="admin-stats animate-fade-up delay-1">
+          <div class="admin-stat">
+            <div class="admin-stat__value" id="stat-total">–</div>
+            <div class="admin-stat__label">Total grantees</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat__value" id="stat-active">–</div>
+            <div class="admin-stat__label">Active tokens</div>
+          </div>
+          <div class="admin-stat">
+            <div class="admin-stat__value" id="stat-expired">–</div>
+            <div class="admin-stat__label">Expired</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHITELIST TABLE ────────────────────────────────── -->
+    <section class="admin-section">
+      <div class="container">
+        <div class="admin-section__header">
+          <h2 class="admin-section__title">Private Access Whitelist</h2>
+          <button class="btn btn--primary" onclick="showAddModal()">+ Grant Access</button>
+        </div>
+
+        <div class="admin-table-wrap animate-fade-up">
+          <table class="admin-table" id="whitelist-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role / Company</th>
+                <th>Token (partial)</th>
+                <th>Granted</th>
+                <th>Expires</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="whitelist-body">
+              <!-- Populated by admin.js -->
+              <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem;font-family:var(--font-mono);font-size:var(--text-xs);">Loading whitelist data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INSTRUCTIONS ───────────────────────────────────── -->
+    <section class="admin-section">
+      <div class="container">
+        <h2 class="admin-section__title">How to Grant / Revoke Access</h2>
+        <div class="admin-instructions animate-fade-up">
+
+          <div class="instruction-step">
+            <div class="instruction-step__num">01</div>
+            <div>
+              <div class="instruction-step__title">Generate a token</div>
+              <p class="instruction-step__desc">
+                Run the following command to get a secure UUID. Use this as the map key in
+                <code>worker/whitelist.js</code>.
+              </p>
+              <div class="code-block">
+                <pre>node -e "console.log('xns_' + crypto.randomUUID())"</pre>
+                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="instruction-step">
+            <div class="instruction-step__num">02</div>
+            <div>
+              <div class="instruction-step__title">Add to whitelist.js</div>
+              <p class="instruction-step__desc">
+                Open <code>worker/whitelist.js</code> and add a new entry to the
+                <code>WHITELIST</code> Map with the grantee's details.
+              </p>
+            </div>
+          </div>
+
+          <div class="instruction-step">
+            <div class="instruction-step__num">03</div>
+            <div>
+              <div class="instruction-step__title">Deploy the Worker</div>
+              <p class="instruction-step__desc">
+                Push to GitHub (if using CI) or run <code>wrangler deploy</code>
+                directly. The new token is live within seconds.
+              </p>
+              <div class="code-block">
+                <pre>wrangler deploy</pre>
+                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="instruction-step">
+            <div class="instruction-step__num">04</div>
+            <div>
+              <div class="instruction-step__title">Share the access link</div>
+              <p class="instruction-step__desc">
+                Send the grantee a URL in the format below. They must visit it to
+                set the auth cookie. After that, they can access
+                <code>/private</code> directly.
+              </p>
+              <div class="code-block">
+                <pre id="share-url-preview">https://xensenx.com/private?token=xns_YOUR_TOKEN_HERE</pre>
+                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="instruction-step">
+            <div class="instruction-step__num">05</div>
+            <div>
+              <div class="instruction-step__title">Revoke access</div>
+              <p class="instruction-step__desc">
+                Delete the token entry from <code>whitelist.js</code> and redeploy.
+                The token becomes invalid instantly on the next Worker request.
+                No session invalidation is needed — the cookie value simply won't match.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" style="position:relative;z-index:1;">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand"><strong>xensenx</strong> — Admin Panel</div>
+        <p class="footer__copy">Owner access only. Do not share this URL.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/nav.js"   defer></script>
+  <script src="/admin/js/admin.js" defer></script>
+</body>
+</html>

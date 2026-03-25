@@ -1,0 +1,302 @@
+/* ============================================================
+   private.css — xensenx deep resume / private section
+   ============================================================ */
+
+/* ─── PRIVATE HEADER ─────────────────────────────────────── */
+.private-header {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
+  position: relative;
+  z-index: 1;
+}
+
+.private-header__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.private-header__greeting {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-1);
+}
+.private-header__greeting strong { color: var(--accent-primary); }
+
+.private-header__role {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.private-header__profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.private-header__headshot {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--bg-overlay), var(--bg-raised));
+  border: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.private-header__initials {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.private-header__photo-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.private-header__name {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: var(--space-2);
+}
+
+.private-header__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.private-header__meta {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ─── PRIVATE SECTIONS ───────────────────────────────────── */
+.private-section {
+  padding-block: var(--space-16);
+  position: relative;
+  z-index: 1;
+}
+
+.private-section__title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-8);
+}
+
+/* ─── PRIVATE GRID / CARDS ───────────────────────────────── */
+.private-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.private-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.private-card:hover { border-color: var(--border-glow); }
+
+.private-card__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.private-card__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-1);
+  text-transform: uppercase;
+}
+
+.private-card__value {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+a.private-card__value:hover { color: var(--accent-primary); }
+
+/* ─── CV DOWNLOAD ────────────────────────────────────────── */
+.cv-download {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.cv-download__title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.cv-download__sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ─── CV TIMELINE ────────────────────────────────────────── */
+.cv-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.cv-timeline::before {
+  content: '';
+  position: absolute;
+  left: 140px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-dim);
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--space-8);
+  padding-block: var(--space-8);
+  position: relative;
+}
+
+.cv-entry::after {
+  content: '';
+  position: absolute;
+  left: 136px;
+  top: var(--space-10);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  border: 2px solid var(--bg-void);
+}
+
+.cv-entry:not(:last-child) {
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.cv-entry__period {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: var(--space-8);
+  padding-top: 2px;
+}
+
+.cv-entry__year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.cv-entry__duration {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
+.cv-entry__company {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.cv-entry__role {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.cv-entry__desc {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: var(--space-4);
+}
+
+.cv-entry__tech {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ─── PHOTO PLACEHOLDERS ─────────────────────────────────── */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.photo-placeholder {
+  aspect-ratio: 3/4;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border-soft);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cv-timeline::before { display: none; }
+  .cv-entry { grid-template-columns: 1fr; gap: var(--space-3); }
+  .cv-entry__period { align-items: flex-start; padding-right: 0; }
+  .cv-entry::after { display: none; }
+  .photos-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .photos-grid { grid-template-columns: 1fr; }
+  .cv-download { flex-direction: column; align-items: flex-start; }
+}
