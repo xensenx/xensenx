@@ -3,7 +3,7 @@
 </p>
 
 <p align="left">
-  <img src="assets/about_window_v2.html" alt="window-about_2" width="600" />
+  <img src="assets/about_svg_readme.svg" alt="window-about_2" width="600" />
 </p>
 
 
