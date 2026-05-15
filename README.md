@@ -4,10 +4,12 @@
 
 # About
 
-<h5>I'm an independent software developer leveraging AI augmentation to accelerate the way I build and ship tools.<br>
-My focus is to create useful software that actively reduces friction, whether by saving time or minimizing effort.</h5>
+<h4>I'm an independent software developer leveraging AI augmentation to accelerate the way I build and ship tools.<br>
+My focus is to create useful software that actively reduces friction, whether by saving time or minimizing effort.</h4>
 
-I build every project around three core principles that I firmly believe good software must uphold:
+---
+
+#### I build every project around three core principles that I firmly believe good software must uphold:
 
 **Privacy** : Although true privacy is becoming scarce in the modern digital era, it remains a foundational priority in my work. Giving users secure, private options is the only way to drive meaningful change.
 
