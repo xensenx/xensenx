@@ -2,6 +2,8 @@
   <img src="assets/github-dark-anim.svg" alt="window-about" width="600" />
 </p>
 
+---
+
 ### About
 
 I'm an independent software developer leveraging AI augmentation to accelerate the way I build and ship tools. My focus is simple: create useful software that actively reduces friction, whether by saving time or minimizing manual effort. I build every project around three core principles that I firmly believe good software must uphold:
@@ -12,7 +14,8 @@ User Experience: Because my ultimate goal is to eliminate friction, a clunky int
 
 Reliability: Good software should seamlessly fade into the background. A user shouldn't feel surprised when a tool finally works; they should look back after months of use and realize, "It just works."
 
+---
 
 <p align="left">
-  <img src="assets/kofi_banner_tight.svg" alt="window-about" width="600" />
+  <img src="assets/kofi_banner_tight.svg" alt="window-about" width="300" />
 </p>
