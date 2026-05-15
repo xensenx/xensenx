@@ -15,5 +15,7 @@ I'm an independent software developer leveraging AI augmentation to accelerate t
 <br>
 
 <p align="left">
-  <img src="assets/kofi_banner_tight.svg" alt="window-about" width="480" />
+  <a href="https://ko-fi.com/xensenx" target="_blank">
+    <img src="assets/kofi_banner_tight.svg" alt="window-about" width="480" />
+  </a>
 </p>
