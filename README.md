@@ -2,7 +2,7 @@
   <img src="assets/github-dark-anim.svg" alt="window-about" width="600" />
 </p>
 
----
+
 
 ### About
 
@@ -14,8 +14,8 @@ User Experience: Because my ultimate goal is to eliminate friction, a clunky int
 
 Reliability: Good software should seamlessly fade into the background. A user shouldn't feel surprised when a tool finally works; they should look back after months of use and realize, "It just works."
 
----
+
 
 <p align="left">
-  <img src="assets/kofi_banner_tight.svg" alt="window-about" width="300" />
+  <img src="assets/kofi_banner_tight.svg" alt="window-about" width="480" />
 </p>
