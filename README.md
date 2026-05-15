@@ -3,7 +3,7 @@
 </p>
 
 <p align="left">
-  <img src="assets/about_svg_readme.svg" alt="window-about_2" width="100%" />
+  <img src="assets/about_roboto_slab.svg" alt="window-about_2" width="100%" />
 </p>
 
 
