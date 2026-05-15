@@ -9,18 +9,28 @@ My focus is to create useful software that actively reduces friction, whether by
 
 ##### I build every project around three core principles that I firmly believe good software must uphold:
 
-**Privacy** <br>
-Although true privacy is becoming scarce in the modern digital era, it remains a foundational priority in my work.<br>
-Giving users secure, private options is the only way to drive meaningful change.
-
-**User Experience** <br>
-Because my ultimate goal is to eliminate friction, a clunky interface defeats the purpose. <br>
-I design with UX at the forefront, ensuring my solutions are as intuitive to navigate as they are functional.
-
-**Reliability** <br>
-Good software should seamlessly fade into the background. <br>
-A user shouldn't feel surprised when a tool finally works; they should look back after months of use and realize, "It just works."
-
+<table width="100%">
+  <tr>
+    <td width="33%" valign="top">
+      <h3 align="center">Privacy</h3>
+      <br>
+      <p>Although true privacy is becoming scarce in the modern digital era, it remains a foundational priority in my work.</p>
+      <p>Giving users secure, private options is the only way to drive meaningful change.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3 align="center">User Experience</h3>
+      <br>
+      <p>Because my ultimate goal is to eliminate friction, a clunky interface defeats the purpose.</p>
+      <p>I design with UX at the forefront, ensuring my solutions are as intuitive to navigate as they are functional.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3 align="center">Reliability</h3>
+      <br>
+      <p>Good software should seamlessly fade into the background.</p>
+      <p>A user shouldn't feel surprised when a tool finally works; they should look back after months of use and realize, "It just works."</p>
+    </td>
+  </tr>
+</table>
 <br>
 
 
