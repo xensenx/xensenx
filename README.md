@@ -9,15 +9,15 @@ My focus is to create useful software that actively reduces friction, whether by
 
 ##### I build every project around three core principles that I firmly believe good software must uphold:
 
-**Privacy**
+**Privacy** <br>
 Although true privacy is becoming scarce in the modern digital era, it remains a foundational priority in my work.<br>
 Giving users secure, private options is the only way to drive meaningful change.
 
-**User Experience**
+**User Experience** <br>
 Because my ultimate goal is to eliminate friction, a clunky interface defeats the purpose. <br>
 I design with UX at the forefront, ensuring my solutions are as intuitive to navigate as they are functional.
 
-**Reliability**
+**Reliability** <br>
 Good software should seamlessly fade into the background. <br>
 A user shouldn't feel surprised when a tool finally works; they should look back after months of use and realize, "It just works."
 
