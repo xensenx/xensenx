@@ -1,3 +1,3 @@
 <p align="center">
-  <img src="assets/github-dark-anim.svg" alt="Typing Animation" />
+  <img src="assets/github-dark-anim.svg" alt="window-about" width="400" />
 </p>
