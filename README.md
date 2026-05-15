@@ -4,10 +4,10 @@
 
 # About
 
-<h4>I'm an independent software developer leveraging AI augmentation to accelerate the way I build and ship tools.<br>
-My focus is to create useful software that actively reduces friction, whether by saving time or minimizing effort.</h4>
+<h3>I'm an independent software developer leveraging AI augmentation to accelerate the way I build and ship tools.<br>
+My focus is to create useful software that actively reduces friction, whether by saving time or minimizing effort.</h3>
 
-##### I build every project around three core principles that I firmly believe good software must uphold:
+#### I build every project around three core principles that I firmly believe good software must uphold:
 
 <table width="100%">
   <tr>
