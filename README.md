@@ -2,6 +2,10 @@
   <img src="assets/github-dark-anim.svg" alt="window-about" width="600" />
 </p>
 
+<p align="left">
+  <img src="assets/about_white.png" alt="window-about" width="600" />
+</p>
+
 
 
 <p align="left">
