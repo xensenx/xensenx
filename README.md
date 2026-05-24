@@ -2,9 +2,6 @@
   <img src="assets/github-dark-anim.svg" alt="window-about" width="600" />
 </p>
 
-<p align="left">
-  <img src="assets/about_roboto_slab.svg" alt="window-about" width="100%" />
-</p>
 
 
 <p align="left">
