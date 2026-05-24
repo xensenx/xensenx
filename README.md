@@ -3,7 +3,7 @@
 </p>
 
 <p align="left">
-  <img src="assets/about_white.png" alt="window-about" width="100%" />
+  <img src="assets/about_white.png" alt="window-about" width="1000" />
 </p>
 
 
