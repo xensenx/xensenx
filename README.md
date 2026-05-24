@@ -1,11 +1,14 @@
 <p align="left">
-  <img src="assets/github-dark-anim.svg" alt="window-about" width="600" />
+  <img src="assets/hello.svg" alt="window-about" width="600" />
 </p>
 
 <p align="left">
-  <img src="assets/about_white.png" alt="window-about" width="900" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/about_white.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/about_black.png">
+    <img alt="window-about" src="assets/about_white.png" width="900">
+  </picture>
 </p>
-
 ---
 
 <p align="left">
