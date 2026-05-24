@@ -9,6 +9,7 @@
     <img alt="window-about" src="assets/about_white.png" width="900">
   </picture>
 </p>
+
 ---
 
 <p align="left">
