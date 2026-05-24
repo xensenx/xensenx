@@ -6,6 +6,7 @@
   <img src="assets/about_white.png" alt="window-about" width="900" />
 </p>
 
+---
 
 <p align="left">
   <a href="https://ko-fi.com/xensenx" target="_blank">
