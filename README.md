@@ -11,7 +11,7 @@
 <div align="center">
   <p>I'm an Independent software developer leveraging AI Augmentation to accelerate the way I build 
     and ship tools, my focus is to create useful software that actively Reduces friction, whether by 
-    saving time minimizing effort.g time minimizing effort.</p>
+    saving time or minimizing effort.</p>
 </div>
 
 <p align="center">
@@ -19,3 +19,8 @@
     <img src="assets/kofi_banner_tight.svg" alt="window-about" width="350" />
   </a>
 </p>
+
+<div align="center">
+  <p>tttt.</p>
+</div>
+
