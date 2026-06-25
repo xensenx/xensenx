@@ -2,8 +2,6 @@
   <img src="assets/hello.svg" alt="window-about" width="600" />
 </p>
 
-
-
 <h1 align="center">
   <p>About</p>
 </h1>
@@ -21,6 +19,6 @@
 </p>
 
 <div align="center">
-  <p>ttt.</p>
+  <p>****</p>
 </div>
 
