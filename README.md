@@ -12,8 +12,8 @@
   <p>About</p>
 </h1>
 
-<p align="center">
+<h1 align="center">
   <p>I'm an Independent software developer leveraging AI Augmentation to accelerate the way I build 
     and ship tools, my focus is to create useful software that actively Reduces friction, whether by 
     saving time minimizing effort.g time minimizing effort.</p>
-</p>
+</h1>
