@@ -21,6 +21,6 @@
 </p>
 
 <div align="center">
-  <p>tttt.</p>
+  <p>ttt.</p>
 </div>
 
