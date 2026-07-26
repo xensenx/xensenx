@@ -2,10 +2,11 @@
   <picture>
     <h1>xensenx</h1>
   </picture>
+  <p>An Independent software developer leveraging AI Augmentation to accelerate software workflows!<p>
 </h1>
 
 <div align="center">
-  <p>An Independent software developer leveraging AI Augmentation to accelerate software workflows!<p>
+  
 <div align="center">
   <h4>
     My focus is to create useful software that actively Reduces friction, whether by 
