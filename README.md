@@ -35,7 +35,7 @@ In any case, aside from all the "Philosophical stuff", I'm essentially an indie 
   <p>***</p>
 </div>
 
-## Flagship Porjects
+## Flagship Project.
 
 Secure-Smart-Sync (SSS)
 Secure Smart Sync is an Obsidian plugin designed to help users sync their vaults across devices using their own cloud infrastructure while maintaining reliability, privacy, and user control.
