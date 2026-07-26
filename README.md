@@ -14,7 +14,7 @@
 
 # Introduction
 
-<div align="center">
+<div>
   <p>Hi, I'm Sen, or that's what I go by online. calling me a full-fledged programmer would be a stretch. I code mostly using AI tools, also referred to as "Ai Augmented Workflow."
 Anyhow, I do put significant effort into thinking things through before making tools. My focus is to make software that's practical, grounded, and something that actually solves real-world problems or removes small and annoying frictions in life. <br>
     And here in this library of open source archives, I believe you'd find many such tools, so feel free to poke around!
