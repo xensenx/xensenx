@@ -1,8 +1,8 @@
 <h1 align="center">
   <picture>
     <h1>xensenx</h1>
-  </picture>
-  </sub>An Independent software developer leveraging AI Augmentation to accelerate software workflows!</sup>
+  </picture>
+  <sub><sup>An Independent software developer leveraging AI Augmentation to accelerate software workflows!</sup></sub>
 </h1>
 
 <div align="center">
