@@ -1,3 +1,4 @@
+<h1 align="center">Sen</h1>
 <h1 align="center">
   <picture>
     <h1>xensenx</h1>
@@ -9,7 +10,7 @@
 </h1>
 
 <p align="center">
-  <img src="assets/hello.svg" alt="window-about" width="1000" />
+  <img src="assets/hello.svg" alt="window-about" width="900" />
 </p>
 
 
