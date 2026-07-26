@@ -3,15 +3,11 @@
     <h1>xensenx</h1>
   </picture>
   <sub><sup>An Independent software developer leveraging AI Augmentation to accelerate software workflows!</sup></sub>
+  <sub> My focus is to create useful software that actively Reduces friction, whether by 
+    saving time or minimizing effort.</sub>
 </h1>
 
-<div align="center">
-  
-<div align="center">
-  <h4>
-    My focus is to create useful software that actively Reduces friction, whether by 
-    saving time or minimizing effort.</h4>
-</div>
+
 
 
 
