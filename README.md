@@ -8,14 +8,8 @@
     saving time or minimizing effort.</sub>
 </h1>
 
-
-
-
-
-## In Brief
-
 <p align="center">
-  <img src="assets/hello.svg" alt="window-about" width="500" />
+  <img src="assets/hello.svg" alt="window-about" width="1000" />
 </p>
 
 
