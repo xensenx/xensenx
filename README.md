@@ -32,7 +32,7 @@ In any case, aside from all the "Philosophical stuff", I'm essentially an indie 
 </div>
 
 <div align="center">
-  <p>****</p>
+  <p>***</p>
 </div>
 
 ## Flagship Porjects
