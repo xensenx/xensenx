@@ -1,7 +1,7 @@
 <h1 align="center">
   <picture>
     <h1>sen</h1>
-      <sub>19yo •  student in Computer Science • Self-thought Graphic Designer • Hobbyist Writer</sub>
+      <sub><sup>19yo •  student in Computer Science • Self-thought Graphic Designer • Hobbyist Writer</sup></sub>
       <picture>
          <h3>xensenx</h3>
             <picture>
