@@ -2,7 +2,7 @@
   <picture>
     <h1>sen</h1>
   </picture>
-  <--->
+    <username>
   <picture>
     <h3>xensenx</h3>
   </picture>
@@ -21,4 +21,5 @@ Secure-Smart-Sync (SSS)
 Secure Smart Sync is an Obsidian plugin designed to help users sync their vaults across devices using their own cloud infrastructure while maintaining reliability, privacy, and user control.
 
 Organization : [SSS](https://github.com/Secure-Smart-Sync)
+
 
