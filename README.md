@@ -2,15 +2,14 @@
   <picture>
     <h1>xensenx</h1>
   </picture>
+  <p align="center">
+  <i>Pronounced: "sen-sen"</i>
+  </p>
   <sub><sup>An Independent software developer leveraging AI Augmentation to accelerate software workflows!</sup></sub>
   <br>
   <sub> My focus is to create useful software that actively Reduces friction, whether by 
     saving time or minimizing effort.</sub>
 </h1>
-
-<p align="center">
-  <i>Pronounced: "sen-sen"</i>
-</p>
 
 <p align="center">
   <img src="assets/hello.svg" alt="window-about" width="900" />
