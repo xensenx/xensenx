@@ -3,13 +3,13 @@
     <h1>sen</h1>
       <picture>
          <h3>xensenx</h3>
+            <picture>
+                 <h6><i><b>Pronunciation:</b> <code>sen-sen</code></i></h6>
+            </picture>
       </picture>
   </picture>
-    <sub>username</sub>
 
-  <picture>
-     <h6><i><b>Pronunciation:</b> <code>sen-sen</code></i></h6>
-  </picture>
+  
   <sub><sup>An Independent software developer leveraging AI Augmentation to accelerate software workflows!</sup></sub>
   <br>
   <sub><sup> My focus is to create useful software that actively Reduces friction, whether by 
