@@ -2,7 +2,7 @@
   <picture>
     <h1>sen</h1>
   </picture>
-    <sub>username<sub>
+    <sub>username</sub>
   <picture>
     <h3>xensenx</h3>
   </picture>
