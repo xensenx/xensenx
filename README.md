@@ -3,7 +3,7 @@
     <h1>xensenx</h1>
   </picture>
   <p align="center">
-  <i>Pronounced: "sen-sen"</i>
+     <b>Pronunciation:</b> <code>sen-sen</code>
   </p>
   <sub><sup>An Independent software developer leveraging AI Augmentation to accelerate software workflows!</sup></sub>
   <br>
