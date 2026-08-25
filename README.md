@@ -1,6 +1,9 @@
 <h1 align="center">
   <picture>
-    <h1>xensenx</h1>
+    <h1>Sen</h1>
+  </picture>
+  <picture>
+    <h5>xensenx</h5>
   </picture>
   <p align="center">
      <i><b>Pronunciation:</b> <code>sen-sen</code></i>
