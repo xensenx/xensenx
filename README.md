@@ -9,6 +9,10 @@
 </h1>
 
 <p align="center">
+  <i>Pronounced: "sen-sen"</i>
+</p>
+
+<p align="center">
   <img src="assets/hello.svg" alt="window-about" width="900" />
 </p>
 
