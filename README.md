@@ -12,4 +12,6 @@
 </h1>
 
 
-
+<p align="center">
+  <img src="./assets/svgs/visit_site.svg" alt="Visit Site Button" width="400">
+</p>
