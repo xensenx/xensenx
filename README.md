@@ -14,6 +14,6 @@
 
 <p align="center">
   <a href="https://xensenx.dev/" target="_blank" rel="noopener noreferrer">
-    <img src="./assets/svgs/visit_site.svg" alt="Visit Site Button" width="300">
+    <img src="./assets/svgs/visit_site.svg" alt="Visit Site Button" width="250">
   </a>
 </p>
