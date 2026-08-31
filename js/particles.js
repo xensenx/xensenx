@@ -1,4 +1,4 @@
-﻿/**
+/**
  * particles.js
  *
  * Sparse beige dust motes that materialise near the cursor
@@ -141,12 +141,23 @@
   // ── Gate: activate only once the flash screen is gone ────────
   // Uses MutationObserver so there's no coupling to main.js timings.
   const mainPage = document.getElementById("main-page");
-  const observer = new MutationObserver(function () {
+  if (mainPage) {
+    // We are on index.html, wait for flash to dissolve
+    const observer = new MutationObserver(function () {
+      if (mainPage.classList.contains("visible")) {
+        active = true;
+        observer.disconnect();
+      }
+    });
+    observer.observe(mainPage, { attributes: true, attributeFilter: ["class"] });
+    // Fallback if it's already visible
     if (mainPage.classList.contains("visible")) {
       active = true;
       observer.disconnect();
     }
-  });
-  observer.observe(mainPage, { attributes: true, attributeFilter: ["class"] });
+  } else {
+    // We are on a sub-page, no flash screen, activate immediately
+    active = true;
+  }
 
 })();

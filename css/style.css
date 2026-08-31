@@ -1,4 +1,4 @@
-﻿/* ─────────────────────────────────────────────────────────────
+/* ─────────────────────────────────────────────────────────────
    XENSENX — PORTFOLIO
    Palette:  bg #363636   text #f5f5dc   muted #9a9282
    Serif:    Times New Roman  |  Sans: Manrope 300
@@ -336,8 +336,6 @@ nav { display: flex; align-items: center; justify-content: space-between; }
   aspect-ratio: 1 / 1;
   overflow: hidden;
   margin-bottom: clamp(0.7rem, 1.5vh, 1rem);
-  /* Clamp so cards don't become massive on ultra-wide screens */
-  max-height: clamp(130px, 24vh, 300px);
 }
 
 .card-img-wrap img {
@@ -769,6 +767,7 @@ nav { display: flex; align-items: center; justify-content: space-between; }
   object-fit: cover;
   flex-shrink: 0;
   opacity: 0.88;
+  border-radius: 50%;
 }
 /* Override margin when title is inside the row */
 .article-title-row .article-title { margin-bottom: 0; }

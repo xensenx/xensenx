@@ -75,10 +75,10 @@
     <div class="modal-box" role="dialog" aria-modal="true" aria-label="Contact email">
       <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
       <p class="modal-label">Reach me at</p>
-      <p class="modal-email" id="modal-email-text">xensenx.dev@gmail.com</p>
+      <p class="modal-email" id="modal-email-text">hello@xensenx.dev</p>
       <div class="modal-actions">
         <button class="modal-btn" id="copy-btn">Copy address</button>
-        <a class="modal-btn modal-btn-primary" href="mailto:xensenx.dev@gmail.com">Open in mail app</a>
+        <a class="modal-btn modal-btn-primary" href="mailto:hello@xensenx.dev">Open in mail app</a>
       </div>
       <p class="modal-copied" id="copy-confirm">Copied.</p>
     </div>
@@ -123,7 +123,7 @@
     modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
 
     copyBtn.addEventListener('click', function() {
-      navigator.clipboard.writeText('xensenx.dev@gmail.com').then(function() {
+      navigator.clipboard.writeText('hello@xensenx.dev').then(function() {
         confirm.classList.add('show');
         setTimeout(function(){ confirm.classList.remove('show'); }, 2000);
       });
@@ -132,5 +132,6 @@
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
   </script>
 
+<script src="js/particles.js"></script>
 </body>
 </html>
