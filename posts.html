@@ -1,31 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - xensenx</title>
-  <meta name="description" content="Reach out to Sen for collaborations, ideas, or internship opportunities. Always open to meaningful conversations." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Posts — xensenx</title>
+  <meta name="description" content="Writing by Sen — essays, poems, and ideas. Thoughts on life, technology, and everything in between." />
   <meta name="author" content="Sen (xensenx)" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#363636" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Let's Talk — xensenx" />
-  <meta property="og:description" content="Reach out to Sen for collaborations, ideas, or internship opportunities. Always open to meaningful conversations." />
-  <meta property="og:url" content="https://xensenx.dev/contact.html" />
+  <meta property="og:title" content="Posts — xensenx" />
+  <meta property="og:description" content="Writing by Sen — essays, poems, and ideas." />
+  <meta property="og:url" content="https://xensenx.dev/posts.html" />
   <meta property="og:site_name" content="xensenx" />
   <meta property="og:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Let's Talk — xensenx" />
-  <meta name="twitter:description" content="Reach out to Sen for collaborations, ideas, or internship opportunities. Always open to meaningful conversations." />
+  <meta name="twitter:title" content="Posts — xensenx" />
+  <meta name="twitter:description" content="Writing by Sen — essays, poems, and ideas." />
   <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://xensenx.dev/contact.html" />
-  <!-- Favicons -->
+  <link rel="canonical" href="https://xensenx.dev/posts.html" />
   <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
@@ -38,51 +31,89 @@
 
   <header>
     <nav>
-      <a id="nav-logo" class="nav-name" href="index.html">xensenx</a>
+      <a class="nav-name" href="index.html">xensenx</a>
       <div class="nav-links">
         <a href="index.html">mind</a>
-        <a href="posts.html">posts</a><a href="work.html">work</a>
+        <a href="posts.html">posts</a>
+        <a href="work.html">work</a>
         <a href="contact.html">contact</a>
       </div>
     </nav>
   </header>
 
-  <main class="contact-page">
+  <main class="posts-page">
+    <h1 class="posts-page-title">Posts</h1>
 
-    <div class="contact-body">
-      <h1 class="contact-title">Let&rsquo;s Talk</h1>
-
-      <div class="contact-text">
-        <p>If you want to reach out for anything, feel free to do so.</p>
-        <p>Whether it&rsquo;s about one of my projects, a collaboration, an idea you want to discuss, or simply something you think I&rsquo;d find interesting, I&rsquo;m always open to hearing from people.</p>
-        <p>I&rsquo;m also open to work and looking for internship opportunities.</p>
-        <p>You can find the ways to reach me below.</p>
-        <p class="contact-sign">&mdash; Sen</p>
-      </div>
-
-      <div class="contact-methods">
-        <button class="contact-email-btn" id="email-btn" aria-label="Show email">
-          <span>Email</span>
-          <span class="contact-btn-arrow">&rarr;</span>
-        </button>
+    <div class="posts-controls">
+      <input
+        type="search"
+        class="posts-search"
+        id="posts-search"
+        placeholder="Search..."
+        aria-label="Search posts"
+      />
+      <div class="posts-filters" role="group" aria-label="Filter by category">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="license">License</button>
+        <button class="filter-btn" data-filter="poem">Poem</button>
+        <button class="filter-btn" data-filter="essay">Essay</button>
       </div>
     </div>
 
+    <div class="posts-grid" id="posts-grid">
+
+      <a class="card" href="posts/visual-identity-license-v1.html"
+         data-category="license"
+         data-title="Visual Identity License v1">
+        <div class="card-img-wrap">
+          <img src="assets/Blog_banners/VIL_V1.jpeg" alt="Visual Identity License v1" loading="lazy" />
+        </div>
+        <div class="card-text">
+          <p class="card-title">Visual Identity License v1</p>
+          <p class="card-desc">A license for protecting brand identity in open-source projects — keep your visual identity yours while your code stays free.</p>
+        </div>
+      </a>
+
+      <a class="card" href="posts/one-of-my-poems.html"
+         data-category="poem"
+         data-title="One of my poems">
+        <div class="card-img-wrap">
+          <img src="assets/Blog_banners/source_of_me.jpeg" alt="One of my poems" loading="lazy" />
+        </div>
+        <div class="card-text">
+          <p class="card-title">One of my poems</p>
+          <p class="card-desc">The Source of Me — a poem about time, boredom, and the quiet cost of losing both.</p>
+        </div>
+      </a>
+
+      <a class="card" href="posts/everyday-another-chance.html"
+         data-category="essay"
+         data-title="Everyday Another Chance">
+        <div class="card-img-wrap">
+          <img src="assets/Blog_banners/Everyday_another_chance.jpeg" alt="Everyday Another Chance" loading="lazy" />
+        </div>
+        <div class="card-text">
+          <p class="card-title">Everyday Another Chance</p>
+          <p class="card-desc">A simple sentence. A core principle. On difficulty, hope, and what it means to try again.</p>
+        </div>
+      </a>
+
+      <a class="card" href="posts/literature-is-not-data.html"
+         data-category="essay"
+         data-title="Literature is not just Data!">
+        <div class="card-img-wrap">
+          <img src="assets/Blog_banners/Literature-is-not-data.png" alt="Literature is not just Data!" loading="lazy" />
+        </div>
+        <div class="card-text">
+          <p class="card-title">Literature is not just Data!</p>
+          <p class="card-desc">An essay on human narrative, abstraction, and the fundamental role of literature beyond just being data.</p>
+        </div>
+      </a>
+
+    </div>
+
+    <p class="posts-empty" id="posts-empty">No posts match your search.</p>
   </main>
-
-  <!-- ── Email Modal ─────────────────────────────────────────── -->
-  <div id="email-modal" class="modal-overlay" aria-hidden="true">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Contact email">
-      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
-      <p class="modal-label">Reach me at</p>
-      <p class="modal-email" id="modal-email-text">hello@xensenx.dev</p>
-      <div class="modal-actions">
-        <button class="modal-btn" id="copy-btn">Copy address</button>
-        <a class="modal-btn modal-btn-primary" href="mailto:hello@xensenx.dev">Open in mail app</a>
-      </div>
-      <p class="modal-copied" id="copy-confirm">Copied.</p>
-    </div>
-  </div>
 
   <footer id="footer">
     <div class="footer-inner">
@@ -101,40 +132,48 @@
     </div>
   </footer>
 
+  <script src="src/js/particles.js"></script>
+  <script src="src/js/nav.js"></script>
   <script>
     document.querySelectorAll('.foot-yr').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
-    var btn    = document.getElementById('email-btn');
-    var modal  = document.getElementById('email-modal');
-    var close  = document.getElementById('modal-close');
-    var copyBtn= document.getElementById('copy-btn');
-    var confirm= document.getElementById('copy-confirm');
+    // ── Search + Filter ──────────────────────────────────────────
+    var cards      = Array.from(document.querySelectorAll('#posts-grid .card'));
+    var searchInput= document.getElementById('posts-search');
+    var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    var emptyMsg   = document.getElementById('posts-empty');
+    var activeFilter = 'all';
 
-    function openModal() {
-      modal.removeAttribute('aria-hidden');
-      modal.classList.add('open');
+    function applyFilters() {
+      var query = searchInput.value.trim().toLowerCase();
+      var visible = 0;
+
+      cards.forEach(function(card) {
+        var title    = card.dataset.title.toLowerCase();
+        var category = card.dataset.category;
+        var matchSearch = !query || title.includes(query);
+        var matchFilter = activeFilter === 'all' || category === activeFilter;
+        if (matchSearch && matchFilter) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      emptyMsg.style.display = visible === 0 ? 'block' : 'none';
     }
-    function closeModal() {
-      modal.setAttribute('aria-hidden', 'true');
-      modal.classList.remove('open');
-      confirm.classList.remove('show');
-    }
 
-    btn.addEventListener('click', openModal);
-    close.addEventListener('click', closeModal);
-    modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+    searchInput.addEventListener('input', applyFilters);
 
-    copyBtn.addEventListener('click', function() {
-      navigator.clipboard.writeText('hello@xensenx.dev').then(function() {
-        confirm.classList.add('show');
-        setTimeout(function(){ confirm.classList.remove('show'); }, 2000);
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        applyFilters();
       });
     });
-
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
   </script>
-
-<script src="src/js/particles.js"></script>
-<script src="src/js/nav.js"></script>
 </body>
 </html>
