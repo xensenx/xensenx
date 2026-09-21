@@ -63,7 +63,8 @@
 
     // Size and opacity — kept visually quiet
     this.r        = 0.9  + Math.random() * 1.3;     // 0.9 – 2.2 px
-    this.peakA    = 0.16 + Math.random() * 0.16;    // 0.16 – 0.32
+    const opacityScale = isReading ? 0.4 : 1;
+    this.peakA    = (0.16 + Math.random() * 0.16) * opacityScale;  // halved on reading pages
   }
 
   Particle.prototype.update = function () {
@@ -103,6 +104,9 @@
   };
 
   Particle.prototype.isDead = function () { return this.life <= 0; };
+
+  // Reading mode — halve opacity on post/article pages
+  const isReading = document.body.classList.contains("reading-mode");
 
   // ── Mouse tracking ───────────────────────────────────────────
   document.addEventListener("mousemove", function (e) {

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * scroll-effects.js
  *
  * Each section has an "in-focus" position: rect.top === 0
@@ -51,18 +51,16 @@
       }
 
       // ── Scale ────────────────────────────────────────────────
-      // 1.0 at in-focus → 0.88 fully off-screen.
-      // Deliberate and slow — not a snap.
-      const scale = 1 - dev * 0.12;
+      // Gentler shrink — 1.0 at focus, 0.92 fully off-screen
+      const scale = 1 - dev * 0.08;
 
       // ── Blur ─────────────────────────────────────────────────
-      // Quadratic: very gentle near centre, heavier toward the edges.
-      // Peaks at ~10px when the section is fully off-screen.
-      const blur = dev * dev * 10;
+      // Softer curve — peaks ~6px off-screen, barely noticeable near centre
+      const blur = dev * dev * 6;
 
       // ── Opacity ──────────────────────────────────────────────
-      // Fades out as the section moves away. Fully gone at dev ≈ 0.9.
-      const opacity = Math.max(0, 1 - dev * 1.1);
+      // Stays visible longer before fading — fully gone at dev ≈ 1.1
+      const opacity = Math.max(0, 1 - dev * 0.9);
 
       section.style.transform = "scale(" + scale.toFixed(4) + ")";
       section.style.filter    = blur > 0.05

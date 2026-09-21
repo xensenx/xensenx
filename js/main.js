@@ -4,6 +4,8 @@
  *    explicitly clicks the xensenx logo (top-left).
  * 2. Typewriter + pronunciation fade-in.
  * 3. Dissolve flash → reveal main page.
+ * 4. Scroll position restore — saves Y before navigating away,
+ *    restores it instantly when the user navigates back.
  */
 
 (function () {
@@ -14,6 +16,7 @@
   const HOLD_AFTER_MS = 1200;
   const FADE_MS       = 900;
   const SESSION_KEY   = "xsn_flash_done";
+  const SCROLL_KEY    = "xsn_pos";
 
   const flashScreen    = document.getElementById("flash-screen");
   const typewriterEl   = document.getElementById("typewriter-text");
@@ -22,28 +25,55 @@
   const mainPage       = document.getElementById("main-page");
   const navNameEl      = document.getElementById("nav-logo");
 
-  /* ── Clicking the xensenx logo resets the flash ───────────── */
+  /* ── Manual scroll restoration — we handle it ourselves ────── */
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  /* ── Save scroll position before navigating away ────────────── */
+  window.addEventListener("pagehide", function () {
+    if (sessionStorage.getItem(SESSION_KEY)) {
+      sessionStorage.setItem(SCROLL_KEY, String(Math.round(window.scrollY)));
+    }
+  });
+
+  /* ── Clicking the xensenx logo resets the flash ─────────────── */
   if (navNameEl) {
     navNameEl.addEventListener("click", function (e) {
       e.preventDefault();
       sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(SCROLL_KEY);
       window.location.reload();
     });
   }
 
-  /* ── Skip flash if already seen this session ──────────────── */
+  /* ── Skip flash if already seen this session ─────────────────── */
   if (sessionStorage.getItem(SESSION_KEY)) {
     flashScreen.style.display = "none";
+
+    // Read saved scroll position before revealing
+    const savedY = parseInt(sessionStorage.getItem(SCROLL_KEY) || "0", 10);
+    sessionStorage.removeItem(SCROLL_KEY);
+
+    // Reveal immediately with a shorter fade (200ms feels like a "return")
+    mainPage.style.transition = savedY > 0
+      ? "opacity 0.2s ease, visibility 0s linear 0s"
+      : "";
+
     mainPage.classList.remove("hidden");
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         mainPage.classList.add("visible");
+        // Restore scroll position after paint — no visual jump
+        if (savedY > 0) {
+          window.scrollTo(0, savedY);
+        }
       });
     });
     return; // done — no typewriter
   }
 
-  /* ── Typewriter ───────────────────────────────────────────── */
+  /* ── Typewriter ──────────────────────────────────────────────── */
   let charIndex = 0;
 
   function typeNextChar() {
@@ -61,7 +91,7 @@
     }
   }
 
-  /* ── Dissolve ─────────────────────────────────────────────── */
+  /* ── Dissolve ────────────────────────────────────────────────── */
   function beginDissolve() {
     cursorEl.style.animation  = "none";
     cursorEl.style.opacity    = "0";
