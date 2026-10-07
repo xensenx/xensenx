@@ -37,6 +37,13 @@
     }
   });
 
+  /* ── Remember this page so article "← back" links can return here ──
+     nav.js records sub-pages and rewrites article back links; index
+     records itself here. Falls back silently without storage. */
+  try {
+    sessionStorage.setItem("xsn_prev_page", "index.html");
+  } catch (err) { /* storage unavailable — links keep their defaults */ }
+
   /* ── Clicking the xensenx logo resets the flash ─────────────── */
   if (navNameEl) {
     navNameEl.addEventListener("click", function (e) {
@@ -75,6 +82,16 @@
 
   /* ── Typewriter ──────────────────────────────────────────────── */
   let charIndex = 0;
+  const REDUCED_MOTION = window.matchMedia
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Reduced motion: show the word instantly, dissolve shortly after
+  if (REDUCED_MOTION) {
+    typewriterEl.textContent = WORD;
+    if (pronunciationEl) pronunciationEl.classList.add("visible");
+    setTimeout(beginDissolve, 600);
+    return;
+  }
 
   function typeNextChar() {
     if (charIndex < WORD.length) {

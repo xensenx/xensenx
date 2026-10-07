@@ -1,30 +1,30 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Posts — xensenx</title>
-  <meta name="description" content="Writing by Sen — essays, poems, and ideas. Thoughts on life, technology, and everything in between." />
+  <title>Posts � xensenx</title>
+  <meta name="description" content="Writing by Sen � essays, poems, and ideas. Thoughts on life, technology, and everything in between." />
   <meta name="author" content="Sen (xensenx)" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#363636" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Posts — xensenx" />
-  <meta property="og:description" content="Writing by Sen — essays, poems, and ideas." />
+  <meta property="og:title" content="Posts � xensenx" />
+  <meta property="og:description" content="Writing by Sen � essays, poems, and ideas." />
   <meta property="og:url" content="https://xensenx.dev/posts.html" />
   <meta property="og:site_name" content="xensenx" />
   <meta property="og:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Posts — xensenx" />
-  <meta name="twitter:description" content="Writing by Sen — essays, poems, and ideas." />
+  <meta name="twitter:title" content="Posts � xensenx" />
+  <meta name="twitter:description" content="Writing by Sen � essays, poems, and ideas." />
   <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
   <link rel="canonical" href="https://xensenx.dev/posts.html" />
-  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
+  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet" />
+  <!-- Preload fonts for speed -->
+  <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="src/css/style.css" />
 </head>
 <body>
@@ -34,7 +34,7 @@
       <a class="nav-name" href="index.html">xensenx</a>
       <div class="nav-links">
         <a href="index.html">mind</a>
-        <a href="posts.html">posts</a>
+        <a href="posts.html" aria-current="page">posts</a>
         <a href="work.html">work</a>
         <a href="contact.html">contact</a>
       </div>
@@ -64,55 +64,76 @@
 
       <a class="card" href="posts/visual-identity-license-v1.html"
          data-category="license"
-         data-title="Visual Identity License v1">
+         data-title="Visual Identity License v1"
+         data-desc="A license for protecting brand identity in open-source projects � keep your visual identity yours while your code stays free.">
         <div class="card-img-wrap">
-          <img src="assets/Blog_banners/VIL_V1.jpeg" alt="Visual Identity License v1" loading="lazy" />
+          <img src="assets/Blog_banners/VIL_V1.jpeg" alt="Visual Identity License v1" width="1280" height="1280" />
         </div>
-        <div class="card-text">
-          <p class="card-title">Visual Identity License v1</p>
-          <p class="card-desc">A license for protecting brand identity in open-source projects — keep your visual identity yours while your code stays free.</p>
+        <div class="card-body">
+          <span class="card-tag">License</span>
+          <h3 class="card-title">Visual Identity License v1</h3>
+          <p class="card-text">A license for protecting brand identity in open-source projects � keep your visual identity yours while your code stays free.</p>
         </div>
       </a>
 
       <a class="card" href="posts/one-of-my-poems.html"
          data-category="poem"
-         data-title="One of my poems">
+         data-title="One of my poems"
+         data-desc="The Source of Me � a poem about time, boredom, and the quiet cost of losing both.">
         <div class="card-img-wrap">
-          <img src="assets/Blog_banners/source_of_me.jpeg" alt="One of my poems" loading="lazy" />
+          <img src="assets/Blog_banners/source_of_me.jpeg" alt="One of my poems" width="1280" height="1280" loading="lazy" />
         </div>
-        <div class="card-text">
-          <p class="card-title">One of my poems</p>
-          <p class="card-desc">The Source of Me — a poem about time, boredom, and the quiet cost of losing both.</p>
+        <div class="card-body">
+          <span class="card-tag">Poem</span>
+          <h3 class="card-title">One of my poems</h3>
+          <p class="card-text">The Source of Me � a poem about time, boredom, and the quiet cost of losing both.</p>
         </div>
       </a>
 
       <a class="card" href="posts/everyday-another-chance.html"
          data-category="essay"
-         data-title="Everyday Another Chance">
+         data-title="Everyday Another Chance"
+         data-desc="A simple sentence. A core principle. On difficulty, hope, and what it means to try again.">
         <div class="card-img-wrap">
-          <img src="assets/Blog_banners/Everyday_another_chance.jpeg" alt="Everyday Another Chance" loading="lazy" />
+          <img src="assets/Blog_banners/Everyday_another_chance.jpeg" alt="Everyday Another Chance" width="1250" height="1250" loading="lazy" />
         </div>
-        <div class="card-text">
-          <p class="card-title">Everyday Another Chance</p>
-          <p class="card-desc">A simple sentence. A core principle. On difficulty, hope, and what it means to try again.</p>
+        <div class="card-body">
+          <span class="card-tag">Essay</span>
+          <h3 class="card-title">Everyday Another Chance</h3>
+          <p class="card-text">A simple sentence. A core principle. On difficulty, hope, and what it means to try again.</p>
         </div>
       </a>
 
       <a class="card" href="posts/literature-is-not-data.html"
          data-category="essay"
-         data-title="Literature is not just Data!">
+         data-title="Literature is not just Data!"
+         data-desc="An essay on human narrative, abstraction, and the fundamental role of literature beyond just being data.">
         <div class="card-img-wrap">
-          <img src="assets/Blog_banners/Literature-is-not-data.jpg" alt="Literature is not just Data!" loading="lazy" />
+          <img src="assets/Blog_banners/Literature-is-not-data.jpg" alt="Literature is not just Data!" width="900" height="900" loading="lazy" />
         </div>
-        <div class="card-text">
-          <p class="card-title">Literature is not just Data!</p>
-          <p class="card-desc">An essay on human narrative, abstraction, and the fundamental role of literature beyond just being data.</p>
+        <div class="card-body">
+          <span class="card-tag">Essay</span>
+          <h3 class="card-title">Literature is not just Data!</h3>
+          <p class="card-text">An essay on human narrative, abstraction, and the fundamental role of literature beyond just being data.</p>
         </div>
       </a>
 
-    </div>
+          <a class="card" href="posts/the-legend-of-gob-goblet.html"
+         data-category="essay"
+         data-title="The Legend of Gob Goblet"
+         data-desc="The origin story of a strange digital creature that protects files, and the pact humanity made with it.">
+        <div class="card-img-wrap">
+          <img src="assets/Blog_banners/gob-icon.jpeg" alt="The Legend of Gob Goblet" width="1280" height="1280" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <span class="card-tag">Essay</span>
+          <h3 class="card-title">The Legend of Gob Goblet</h3>
+          <p class="card-text">The origin story of a strange digital creature that protects files, and the pact humanity made with it.</p>
+        </div>
+      </a>
+      </div>
 
-    <p class="posts-empty" id="posts-empty">No posts match your search.</p>
+      <p class="posts-empty" id="posts-empty">No posts match your search.</p>
   </main>
 
   <footer id="footer">
@@ -133,11 +154,12 @@
   </footer>
 
   <script src="src/js/particles.js"></script>
+  <script src="src/js/ambient.js"></script>
   <script src="src/js/nav.js"></script>
   <script>
     document.querySelectorAll('.foot-yr').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
-    // ── Search + Filter ──────────────────────────────────────────
+    // -- Search + Filter ------------------------------------------
     var cards      = Array.from(document.querySelectorAll('#posts-grid .card'));
     var searchInput= document.getElementById('posts-search');
     var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
@@ -150,8 +172,9 @@
 
       cards.forEach(function(card) {
         var title    = card.dataset.title.toLowerCase();
+        var desc     = (card.dataset.desc || '').toLowerCase();
         var category = card.dataset.category;
-        var matchSearch = !query || title.includes(query);
+        var matchSearch = !query || title.includes(query) || desc.includes(query);
         var matchFilter = activeFilter === 'all' || category === activeFilter;
         if (matchSearch && matchFilter) {
           card.style.display = '';

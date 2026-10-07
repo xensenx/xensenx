@@ -1,42 +1,42 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Me - xensenx</title>
-  <meta name="description" content="I'm Sen â€” 19, CS student, AI/ML enthusiast, and builder of things. A brief introduction to the person behind the work." />
+  <meta name="description" content="I'm Sen — 19, CS student, AI/ML enthusiast, and builder of things. A brief introduction to the person behind the work." />
   <meta name="author" content="Sen (xensenx)" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#363636" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="profile" />
-  <meta property="og:title" content="About Me â€” xensenx" />
-  <meta property="og:description" content="I'm Sen â€” 19, CS student, AI/ML enthusiast, and builder of things. A brief introduction to the person behind the work." />
+  <meta property="og:title" content="About Me — xensenx" />
+  <meta property="og:description" content="I'm Sen — 19, CS student, AI/ML enthusiast, and builder of things. A brief introduction to the person behind the work." />
   <meta property="og:url" content="https://xensenx.dev/about.html" />
   <meta property="og:site_name" content="xensenx" />
   <meta property="og:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="About Me â€” xensenx" />
-  <meta name="twitter:description" content="I'm Sen â€” 19, CS student, AI/ML enthusiast, and builder of things. A brief introduction to the person behind the work." />
+  <meta name="twitter:title" content="About Me — xensenx" />
+  <meta name="twitter:description" content="I'm Sen — 19, CS student, AI/ML enthusiast, and builder of things. A brief introduction to the person behind the work." />
   <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://xensenx.dev/about.html" />
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
+  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet" />
+  <!-- Preload fonts for speed -->
+  <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="src/css/style.css" />
 </head>
 <body>
   <nav class="article-nav">
-    <a href="index.html" class="article-back">&larr; back</a>
+    <a href="index.html" class="article-back" data-back>&larr; back</a>
     <span class="nav-name">xensenx</span>
   </nav>
 
@@ -63,6 +63,7 @@
   </main>
 
   <script src="src/js/particles.js"></script>
+  <script src="src/js/ambient.js"></script>
 
   <footer id="footer">
     <div class="footer-inner">

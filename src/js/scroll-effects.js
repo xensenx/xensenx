@@ -19,6 +19,11 @@
 (function () {
   "use strict";
 
+  // Respect OS-level reduced-motion preference — plain scrolling, no transforms.
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
   const sections = [...document.querySelectorAll(".sticky-section")];
 
   function update() {
@@ -29,14 +34,21 @@
 
       // ── Exit progress ────────────────────────────────────────
       // How far has the section scrolled above its in-focus position?
-      // 0 = in-focus (rect.top === 0)
-      // 1 = one full viewport above (rect.top === -vh), completely gone
-      const exitProg = Math.max(0, Math.min(1, -rect.top / vh));
+      // But if the section is taller than vh, it shouldn't start exiting until its bottom is near the top.
+      const sectionHeight = rect.height;
+      const scrollDistance = -rect.top;
+      let exitProg = 0;
+      
+      if (scrollDistance > 0) {
+        // We have scrolled past the top of the section.
+        // It should remain fully in-focus until the bottom approaches the top of the viewport.
+        // Actually, if we just want it to act like a normal section, 
+        // we can measure exit relative to its bottom.
+        const exitStart = Math.max(0, sectionHeight - vh);
+        exitProg = Math.max(0, Math.min(1, (scrollDistance - exitStart) / vh));
+      }
 
       // ── Enter progress ───────────────────────────────────────
-      // How far is the section below its in-focus position?
-      // 0 = in-focus (rect.top === 0)
-      // 1 = one full viewport below (rect.top === vh), not yet visible
       const enterProg = Math.max(0, Math.min(1, rect.top / vh));
 
       // Deviation: whichever is greater — exiting OR entering

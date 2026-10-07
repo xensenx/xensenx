@@ -1,4 +1,4 @@
-/**
+﻿/**
  * nav.js
  *
  * Smart hide-on-scroll-down, show-on-scroll-up behaviour for
@@ -10,6 +10,29 @@
 
 (function () {
   "use strict";
+
+  /* ── Memory for article "← back" links ─────────────────────────
+     Record the current main page (posts / work / contact) so post
+     articles can return here instead of always going to the mind
+     page. Rewrites any a[data-back] on this page. */
+  try {
+    var rawPath = window.location.pathname.replace(/\\/g, "/");
+    var here = rawPath.split("/").pop() || "index.html";
+    if (here === "posts.html" || here === "work.html" || here === "contact.html") {
+
+      sessionStorage.setItem("xsn_prev_page", here);
+    }
+    var backLink = document.querySelector("a[data-back]");
+    if (backLink) {
+      var prev = sessionStorage.getItem("xsn_prev_page");
+      if (prev && prev !== here) {
+        var inSubfolder = rawPath.indexOf("/posts/") !== -1 ||
+                          rawPath.indexOf("/research/") !== -1;
+        var prefix = inSubfolder ? "../" : "";
+        backLink.setAttribute("href", prefix + prev);
+      }
+    }
+  } catch (err) { /* storage unavailable — links keep their defaults */ }
 
   var header   = document.querySelector("header") || document.querySelector(".article-nav");
   if (!header) return;

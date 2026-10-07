@@ -4,44 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work - xensenx</title>
-  <meta name="description" content="Flagship projects by Sen: Secure Smart Sync, Project Quagmire, Gob-Goblet, Proxen, and future ventures." />
+  <meta name="description" content="Notable projects and research by Sen &mdash; Secure Smart Sync, Project Quagmire, Gob-Goblet, and ongoing research including VectorQuo." />
   <meta name="author" content="Sen (xensenx)" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#363636" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Work — xensenx" />
-  <meta property="og:description" content="Flagship projects by Sen: Secure Smart Sync, Project Quagmire, Gob-Goblet, Proxen, and future ventures." />
+  <meta property="og:title" content="Work � xensenx" />
+  <meta property="og:description" content="Notable projects and research by Sen &mdash; Secure Smart Sync, Project Quagmire, Gob-Goblet, and ongoing research including VectorQuo." />
   <meta property="og:url" content="https://xensenx.dev/work.html" />
   <meta property="og:site_name" content="xensenx" />
   <meta property="og:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Work — xensenx" />
-  <meta name="twitter:description" content="Flagship projects by Sen: Secure Smart Sync, Project Quagmire, Gob-Goblet, Proxen, and future ventures." />
+  <meta name="twitter:title" content="Work � xensenx" />
+  <meta name="twitter:description" content="Notable projects and research by Sen &mdash; Secure Smart Sync, Project Quagmire, Gob-Goblet, and ongoing research including VectorQuo." />
   <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://xensenx.dev/work.html" />
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
+  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet" />
+  <!-- Preload fonts for speed -->
+  <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="src/css/style.css" />
 </head>
 <body>
 
   <header>
     <nav>
-      <a id="nav-logo" class="nav-name" href="index.html">xensenx</a>
+      <a class="nav-name" href="index.html">xensenx</a>
       <div class="nav-links">
         <a href="index.html">mind</a>
-        <a href="posts.html">posts</a><a href="work.html">work</a>
+        <a href="posts.html">posts</a><a href="work.html" aria-current="page">work</a>
         <a href="contact.html">contact</a>
       </div>
     </nav>
@@ -51,9 +51,21 @@
 
     <h1 class="work-page-title">Work</h1>
 
-    <!-- ── Flagship Projects ─────────────────────────────── -->
+
+    <!-- Tab switcher -->
+    <div class="work-tabs" role="tablist" aria-label="Work categories">
+      <button class="work-tab active" data-tab="projects" role="tab" aria-selected="true" aria-controls="tab-projects">Projects</button>
+      <button class="work-tab" data-tab="research" role="tab" aria-selected="false" aria-controls="tab-research">Research</button>
+      <button class="work-tab" data-tab="future" role="tab" aria-selected="false" aria-controls="tab-future">Future Planned</button>
+      <span class="work-tab-indicator" aria-hidden="true"></span>
+    </div>
+
+    <!-- Projects panel -->
+    <div id="tab-projects" class="work-tab-panel" role="tabpanel" aria-labelledby="tab-btn-projects">
+
+    <!-- -- Notable Projects ------------------------------- -->
     <section class="work-section">
-      <h2 class="work-section-label">Flagship Projects</h2>
+      <h2 class="work-section-label">Notable Projects</h2>
       <div class="projects-list">
 
         <!-- SSS -->
@@ -107,47 +119,60 @@
           </div>
         </article>
 
-        <!-- Proxen -->
-        <article class="project-card">
-          <div class="project-main">
-            <div class="project-top">
-              <span class="project-name">Proxen</span>
-              <span class="project-tag">AI Tool</span>
-            </div>
-            <p class="project-desc">
-              An AI-powered task organiser built around Gemma models via your own Gemini API key. Designed to cut through decision paralysis by helping you set priorities and break tasks into clear steps. Features a built-in AI-assisted note system that retains context across sessions.
-            </p>
-            <div class="project-links">
-              <a href="https://proxen.pages.dev/" class="project-link" target="_blank" rel="noopener">Live &rarr;</a>
-              <a href="https://github.com/xensenx/Proxen" class="project-link" target="_blank" rel="noopener">GitHub &rarr;</a>
-            </div>
-          </div>
-        </article>
-
       </div>
     </section>
 
-    <!-- ── Future Planned ─────────────────────────────────── -->
-    <section class="work-section">
-      <h2 class="work-section-label">Future Planned</h2>
-      <div class="projects-list">
+    </div><!-- /tab-projects -->
 
-        <article class="future-card">
-          <p class="future-name">OxReader</p>
-          <p class="future-desc">An Android tablet-first eBook and comic book reader with folder-based library management and an optional built-in vault system for protected content.</p>
-        </article>
+    <!-- Research panel -->
+    <div id="tab-research" class="work-tab-panel hidden" role="tabpanel" aria-labelledby="tab-btn-research">
+      <section class="work-section">
+        <h2 class="work-section-label">Research</h2>
+        <div class="projects-list">
 
-        <article class="future-card">
-          <p class="future-name">DDR &mdash; Digital Document Reconstruction</p>
-          <p class="future-desc">A long-term research initiative into effective methods for digitising not just text via OCR, but symbols, objects, and complex document structures &mdash; working toward comprehensive reconstruction from any physical source.</p>
-        </article>
+          <!-- VectorQuo -->
+          <article class="project-card research-card" data-href="research/vectorquo.html" style="cursor:pointer;" tabindex="0" role="link" aria-label="Read VectorQuo research note">
+            <div class="project-main">
+              <div class="project-top">
+                <span class="project-name">VectorQuo</span>
+                <span class="project-tag">Research</span>
+              </div>
+              <p class="project-desc">
+                A focused research initiative into accurate, efficient, and broadly applicable raster-to-vector conversion &mdash; from simple logos to complex illustrations, posters, and realistic imagery.
+              </p>
+              <div class="project-links">
+                <a href="research/vectorquo.html" class="project-link">Read Note &rarr;</a>
+              </div>
+            </div>
+          </article>
 
-      </div>
-    </section>
+        </div>
+      </section>
+    </div><!-- /tab-research -->
+    <!-- Future Planned panel -->
+    <div id="tab-future" class="work-tab-panel hidden" role="tabpanel" aria-labelledby="tab-btn-future">
+      <section class="work-section">
+        <h2 class="work-section-label">Future Planned</h2>
+        <div class="projects-list">
+
+          <article class="future-card">
+            <p class="future-name">OxReader</p>
+            <p class="future-desc">An Android tablet-first eBook and comic book reader with folder-based library management and an optional built-in vault system for protected content.</p>
+          </article>
+
+          <article class="future-card">
+            <p class="future-name">DDR &mdash; Digital Document Reconstruction</p>
+            <p class="future-desc">A long-term research initiative into effective methods for digitising not just text via OCR, but symbols, objects, and complex document structures &mdash; working toward comprehensive reconstruction from any physical source.</p>
+          </article>
+
+        </div>
+      </section>
+    </div><!-- /tab-future -->
 
   </main>
 
   <script src="src/js/particles.js"></script>
+  <script src="src/js/ambient.js"></script>
 
   <footer id="footer">
     <div class="footer-inner">
@@ -168,5 +193,75 @@
   <script>document.querySelectorAll('.foot-yr').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 <script src="src/js/nav.js"></script>
   <script src="src/js/dict.js"></script>
+      <script>
+    (function () {
+      var tabs = document.querySelectorAll('.work-tab');
+      var panels = document.querySelectorAll('.work-tab-panel');
+      var indicator = document.querySelector('.work-tab-indicator');
+
+      function updateIndicator(targetTab) {
+        if (!targetTab) return;
+        indicator.style.transform = 'translateX(' + targetTab.offsetLeft + 'px)';
+        indicator.style.width = targetTab.offsetWidth + 'px';
+      }
+
+      function activateTab(tabId) {
+        tabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(function (p) { p.classList.add('hidden'); });
+        
+        var targetTab = document.querySelector('.work-tab[data-tab="' + tabId + '"]');
+        if (!targetTab) return;
+        
+        targetTab.classList.add('active');
+        targetTab.setAttribute('aria-selected', 'true');
+        
+        var targetPanel = document.getElementById('tab-' + tabId);
+        if (targetPanel) targetPanel.classList.remove('hidden');
+
+        updateIndicator(targetTab);
+        
+        try {
+          sessionStorage.setItem('xsn_active_work_tab', tabId);
+        } catch (e) {}
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          activateTab(tab.dataset.tab);
+        });
+      });
+
+      // Restore active tab on load
+      var activeId = 'projects';
+      try {
+        var savedTab = sessionStorage.getItem('xsn_active_work_tab');
+        if (savedTab) activeId = savedTab;
+      } catch (e) {}
+      
+      // Delay initial calculation slightly to ensure layout is ready
+      setTimeout(function() {
+        activateTab(activeId);
+      }, 0);
+
+      window.addEventListener('resize', function() {
+        var activeTab = document.querySelector('.work-tab.active');
+        if (activeTab) updateIndicator(activeTab);
+      });
+
+      // Keyboard nav for research cards
+      document.querySelectorAll('.research-card').forEach(function (card) {
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            var href = card.dataset.href;
+            if (href) window.location.href = href;
+          }
+        });
+        card.addEventListener('click', function (e) {
+            var href = card.dataset.href;
+            if (href) window.location.href = href;
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

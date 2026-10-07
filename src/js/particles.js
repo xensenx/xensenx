@@ -13,6 +13,11 @@
 (function () {
   "use strict";
 
+  // Respect OS-level reduced-motion preference — no particles at all.
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
   // ── Canvas ──────────────────────────────────────────────────
   const canvas = document.createElement("canvas");
   canvas.id    = "particle-canvas";
@@ -38,6 +43,9 @@
   const REPEL_RADIUS  = 95;    // px — cursor influence zone
   const SPAWN_INTERVAL= 42;    // ms — throttle between spawns
   const BEIGE         = [245, 245, 220]; // #f5f5dc components
+
+  // Reading mode — halve opacity on post/article pages
+  const isReading = document.body.classList.contains("reading-mode");
 
   // ── State ────────────────────────────────────────────────────
   const pool      = [];
@@ -104,9 +112,6 @@
   };
 
   Particle.prototype.isDead = function () { return this.life <= 0; };
-
-  // Reading mode — halve opacity on post/article pages
-  const isReading = document.body.classList.contains("reading-mode");
 
   // ── Mouse tracking ───────────────────────────────────────────
   document.addEventListener("mousemove", function (e) {

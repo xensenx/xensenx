@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Let's Talk — xensenx" />
+  <meta property="og:title" content="Let's Talk � xensenx" />
   <meta property="og:description" content="Reach out to Sen for collaborations, ideas, or internship opportunities. Always open to meaningful conversations." />
   <meta property="og:url" content="https://xensenx.dev/contact.html" />
   <meta property="og:site_name" content="xensenx" />
@@ -19,30 +19,30 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Let's Talk — xensenx" />
+  <meta name="twitter:title" content="Let's Talk � xensenx" />
   <meta name="twitter:description" content="Reach out to Sen for collaborations, ideas, or internship opportunities. Always open to meaningful conversations." />
   <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://xensenx.dev/contact.html" />
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
+  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet" />
+  <!-- Preload fonts for speed -->
+  <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="src/css/style.css" />
 </head>
 <body>
 
   <header>
     <nav>
-      <a id="nav-logo" class="nav-name" href="index.html">xensenx</a>
+      <a class="nav-name" href="index.html">xensenx</a>
       <div class="nav-links">
         <a href="index.html">mind</a>
         <a href="posts.html">posts</a><a href="work.html">work</a>
-        <a href="contact.html">contact</a>
+        <a href="contact.html" aria-current="page">contact</a>
       </div>
     </nav>
   </header>
@@ -70,7 +70,7 @@
 
   </main>
 
-  <!-- ── Email Modal ─────────────────────────────────────────── -->
+  <!-- -- Email Modal ------------------------------------------- -->
   <div id="email-modal" class="modal-overlay" aria-hidden="true">
     <div class="modal-box" role="dialog" aria-modal="true" aria-label="Contact email">
       <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
@@ -109,15 +109,24 @@
     var close  = document.getElementById('modal-close');
     var copyBtn= document.getElementById('copy-btn');
     var confirm= document.getElementById('copy-confirm');
+    var lastFocus = null;
 
     function openModal() {
+      lastFocus = document.activeElement;
       modal.removeAttribute('aria-hidden');
       modal.classList.add('open');
+      close.focus();
     }
     function closeModal() {
       modal.setAttribute('aria-hidden', 'true');
       modal.classList.remove('open');
       confirm.classList.remove('show');
+      // Return focus to the trigger; fall back to the Email button if the
+      // last focused element was something unfocusable (e.g. body).
+      var target = (lastFocus && lastFocus !== document.body
+                    && lastFocus !== document.documentElement
+                    && typeof lastFocus.focus === 'function') ? lastFocus : btn;
+      target.focus();
     }
 
     btn.addEventListener('click', openModal);
@@ -135,6 +144,8 @@
   </script>
 
 <script src="src/js/particles.js"></script>
+  <script src="src/js/contact-flow.js"></script>
+  <script src="src/js/ambient.js"></script>
 <script src="src/js/nav.js"></script>
   <script src="src/js/dict.js"></script>
 </body>

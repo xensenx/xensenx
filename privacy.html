@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Privacy Policy — xensenx" />
+  <meta property="og:title" content="Privacy Policy � xensenx" />
   <meta property="og:description" content="Privacy policy for xensenx.dev. This site collects no personal data of any kind." />
   <meta property="og:url" content="https://xensenx.dev/privacy.html" />
   <meta property="og:site_name" content="xensenx" />
@@ -19,24 +19,24 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Privacy Policy — xensenx" />
+  <meta name="twitter:title" content="Privacy Policy � xensenx" />
   <meta name="twitter:description" content="Privacy policy for xensenx.dev. This site collects no personal data of any kind." />
   <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://xensenx.dev/privacy.html" />
   <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
+  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300&display=swap" rel="stylesheet" />
+  <!-- Preload fonts for speed -->
+  <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="src/css/style.css" />
 </head>
 <body>
   <main class="privacy-page">
-    <a href="index.html" class="privacy-back">← back to mind</a>
+    <a href="index.html" class="privacy-back">? back to mind</a>
     
     <h1>Privacy Policy</h1>
     <p class="privacy-updated">Effective Date: Today</p>
@@ -71,6 +71,7 @@
   </footer>
   <script>document.querySelectorAll('.foot-yr').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 <script src="src/js/particles.js"></script>
+  <script src="src/js/ambient.js"></script>
 <script src="src/js/nav.js"></script>
   <script src="src/js/dict.js"></script>
 </body>
