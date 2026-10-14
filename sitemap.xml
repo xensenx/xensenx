@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://xensenx.dev/</loc><priority>1.0</priority></url>
+  <url><loc>https://xensenx.dev/about.html</loc><priority>0.8</priority></url>
+  <url><loc>https://xensenx.dev/work.html</loc><priority>0.8</priority></url>
+  <url><loc>https://xensenx.dev/posts.html</loc><priority>0.8</priority></url>
+  <url><loc>https://xensenx.dev/contact.html</loc><priority>0.7</priority></url>
+  <url><loc>https://xensenx.dev/posts/visual-identity-license-v1.html</loc><priority>0.6</priority></url>
+  <url><loc>https://xensenx.dev/posts/one-of-my-poems.html</loc><priority>0.6</priority></url>
+  <url><loc>https://xensenx.dev/posts/everyday-another-chance.html</loc><priority>0.6</priority></url>
+  <url><loc>https://xensenx.dev/posts/literature-is-not-data.html</loc><priority>0.6</priority></url>
+  <url><loc>https://xensenx.dev/privacy.html</loc><priority>0.3</priority></url>
+  <url><loc>https://xensenx.dev/sitemap.html</loc><priority>0.3</priority></url>
+
+  <url>
+    <loc>https://xensenx.dev/posts/the-legend-of-gob-goblet.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://xensenx.dev/research/vectorquo.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
