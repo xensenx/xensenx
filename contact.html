@@ -1,41 +1,30 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - xensenx</title>
-  <meta name="description" content="Get in touch with Sen &mdash; developer of xensenx." />
-  <meta name="author" content="Sen (xensenx)" />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#363636" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Contact - xensenx" />
-  <meta property="og:description" content="Get in touch with Sen." />
-  <meta property="og:url" content="https://xensenx.dev/contact.html" />
-  <meta property="og:site_name" content="xensenx" />
-  <meta property="og:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Contact - xensenx" />
-  <meta name="twitter:description" content="Get in touch with Sen." />
-  <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png" />
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://xensenx.dev/contact.html" />
-
-  <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg" />
-  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
-  <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png" />
-
-  <!-- Preload fonts for speed -->
+  <meta name="description" content="Get in touch with Sen — developer of xensenx.">
+  <meta name="author" content="Sen (xensenx)">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#363636">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact - xensenx">
+  <meta property="og:description" content="Get in touch with Sen.">
+  <meta property="og:url" content="https://xensenx.dev/contact.html">
+  <meta property="og:site_name" content="xensenx">
+  <meta property="og:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Contact - xensenx">
+  <meta name="twitter:description" content="Get in touch with Sen.">
+  <meta name="twitter:image" content="https://xensenx.dev/assets/site_icons/Site_icon.png">
+  <link rel="canonical" href="https://xensenx.dev/contact.html">
+  <link rel="icon" type="image/svg+xml" href="assets/site_icons/Site_icon.svg">
+  <link rel="icon" type="image/x-icon" href="assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png">
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-
-  <link rel="stylesheet" href="src/css/style.css?v=2.6" />
+  <link rel="stylesheet" href="src/css/style.css?v=2.6">
   <style>
 /* -------------------------------------------------------------
    CONTACT PAGE
@@ -671,10 +660,12 @@
     padding: 1.6rem 1.4rem;
   }
 }
+
+    .mc-honeypot, .mc-honeypot-wrap { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+    #mc-success-title { outline: none; }
   </style>
 </head>
 <body>
-
   <header>
     <nav>
       <a class="nav-name" href="index.html">xensenx</a>
@@ -687,132 +678,83 @@
   </header>
 
   <main class="contact-page">
-
-    <div class="contact-body">
-
-      <!-- Call to action + Let's talk trigger -->
-      <p class="contact-cta">Reach out. I read everything.</p>
+    <section class="contact-body" aria-labelledby="contact-heading">
+      <h1 class="contact-cta" id="contact-heading">Reach out. I read everything.</h1>
       <button class="contact-about-btn" id="talk-btn" type="button" aria-haspopup="dialog" aria-controls="about-modal">
-        Let&rsquo;s talk <span class="contact-about-arrow">&rarr;</span>
+        Let&rsquo;s talk <span class="contact-about-arrow" aria-hidden="true">&rarr;</span>
       </button>
 
-      <!-- Mail Composer -->
       <form class="mail-composer" id="contact-form" novalidate>
+        <div class="mc-header-bar"><span class="mc-header-title">compose.</span></div>
 
-        <!-- Header bar -->
-        <div class="mc-header-bar">
-          <span class="mc-header-title">compose.</span>
-        </div>
-
-        <!-- Web3Forms fields -->
+        <!-- Recipient is configured in the Web3Forms dashboard, not by this visual label. -->
         <input type="hidden" name="access_key" value="e3484fe8-1916-4d0a-96d9-411246c55ce4">
         <input type="hidden" name="subject" id="mc-subject-field" value="New message via xensenx.dev">
-        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="checkbox" name="botcheck" class="mc-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-        <!-- To row -->
         <div class="mc-row mc-to-row">
           <span class="mc-label">To</span>
           <span class="mc-to-chip">hello@xensenx.dev</span>
         </div>
 
-        <!-- From row: name + email inline -->
         <div class="mc-row mc-from-row" id="mc-from-row">
           <span class="mc-label">From</span>
-          <input class="mc-inline-input mc-name-input" type="text" id="mc-name" name="name"
-                 placeholder="Your name" autocomplete="name" spellcheck="false" required>
+          <input class="mc-inline-input mc-name-input" type="text" id="mc-name" name="name" placeholder="Your name" autocomplete="name" maxlength="120" required aria-label="Your name">
           <span class="mc-angle" aria-hidden="true">&lt;</span>
-          <input class="mc-inline-input mc-email-input" type="email" id="mc-email" name="email"
-                 placeholder="your.email@example.com" autocomplete="email" spellcheck="false" required>
+          <input class="mc-inline-input mc-email-input" type="email" id="mc-email" name="email" placeholder="your.email@example.com" autocomplete="email" maxlength="254" required aria-label="Your email address">
           <span class="mc-angle" aria-hidden="true">&gt;</span>
         </div>
 
-        <!-- Subject row -->
         <div class="mc-row mc-subject-row" id="mc-subject-row">
-          <span class="mc-label">Subject</span>
-          <input class="mc-inline-input mc-subject-input" type="text" id="mc-subject" name="custom_subject"
-                 placeholder="What is this regarding?" autocomplete="off" spellcheck="true" required>
+          <label class="mc-label" for="mc-subject">Subject</label>
+          <input class="mc-inline-input mc-subject-input" type="text" id="mc-subject" name="custom_subject" placeholder="What is this regarding?" maxlength="180" required>
         </div>
 
-        <!-- Formatting toolbar -->
-        <div class="mc-toolbar" role="toolbar" aria-label="Text formatting">
+        <div class="mc-toolbar" role="toolbar" aria-label="Message formatting">
           <div class="mc-toolbar-group">
-            <button type="button" class="mc-tool" data-cmd="bold"      title="Bold (Ctrl+B)" aria-label="Bold"><b>B</b></button>
-            <button type="button" class="mc-tool" data-cmd="italic"    title="Italic (Ctrl+I)" aria-label="Italic"><i>I</i></button>
+            <button type="button" class="mc-tool" data-cmd="bold" title="Bold (Ctrl+B)" aria-label="Bold"><b>B</b></button>
+            <button type="button" class="mc-tool" data-cmd="italic" title="Italic (Ctrl+I)" aria-label="Italic"><i>I</i></button>
             <button type="button" class="mc-tool" data-cmd="underline" title="Underline (Ctrl+U)" aria-label="Underline"><u>U</u></button>
           </div>
           <span class="mc-tool-sep" aria-hidden="true"></span>
           <div class="mc-toolbar-group">
-            <button type="button" class="mc-tool" data-cmd="insertUnorderedList" title="Bullet list" aria-label="Bullet list">
-              <span class="mc-tool-icon">&bull;&mdash;</span>
-            </button>
-            <button type="button" class="mc-tool" data-cmd="insertOrderedList"   title="Numbered list" aria-label="Numbered list">
-              <span class="mc-tool-icon">1.</span>
-            </button>
+            <button type="button" class="mc-tool" data-cmd="insertUnorderedList" title="Bullet list" aria-label="Bullet list"><span class="mc-tool-icon">&bull;&mdash;</span></button>
+            <button type="button" class="mc-tool" data-cmd="insertOrderedList" title="Numbered list" aria-label="Numbered list"><span class="mc-tool-icon">1.</span></button>
           </div>
           <span class="mc-tool-sep" aria-hidden="true"></span>
           <div class="mc-toolbar-group">
-            <button type="button" class="mc-tool mc-tool-clear" data-cmd="removeFormat" title="Clear formatting" aria-label="Clear formatting">
-              <span class="mc-tool-icon">&times;</span> <span class="mc-tool-label">Clear</span>
-            </button>
+            <button type="button" class="mc-tool mc-tool-clear" data-cmd="removeFormat" title="Clear formatting" aria-label="Clear formatting"><span class="mc-tool-icon">&times;</span> <span class="mc-tool-label">Clear</span></button>
           </div>
         </div>
 
-        <!-- Message body (contenteditable) -->
-        <div class="mc-body empty" id="mc-body"
-             contenteditable="true"
-             role="textbox" aria-multiline="true" aria-label="Message body"
-             data-placeholder="Write your note here&hellip;"></div>
+        <div class="mc-body empty" id="mc-body" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Message body" aria-describedby="mc-status" data-placeholder="Write your note here…"></div>
+        <div class="mc-honeypot-wrap" aria-hidden="true"><label for="mc-website">Leave this field empty</label><input id="mc-website" type="text" name="website" tabindex="-1" autocomplete="off"></div>
 
-        <!-- Hidden textarea synced to contenteditable before submit -->
-        <textarea id="mc-hidden" name="message" style="display:none" aria-hidden="true"></textarea>
-
-        <!-- Actions bar -->
         <div class="mc-actions">
-          <div class="mc-status-wrap">
-            <span class="mc-status" id="mc-status" aria-live="polite" role="status"></span>
-          </div>
+          <div class="mc-status-wrap"><span class="mc-status" id="mc-status" aria-live="polite" role="status"></span></div>
           <button type="submit" class="mc-send" id="mc-send-btn">
-            <span class="mc-send-text">Send message</span>
-            <span class="mc-send-arrow">&rarr;</span>
+            <span class="mc-send-text">Send message</span><span class="mc-send-arrow" aria-hidden="true">&rarr;</span>
           </button>
         </div>
-
       </form>
 
-      <!-- Success Card (revealed smoothly when message is sent) -->
-      <div class="mc-success-card" id="mc-success-card" aria-live="polite" aria-hidden="true">
-        <div class="mc-success-header">
-          <div class="mc-success-badge">
-            <span class="mc-success-icon" aria-hidden="true">&check;</span>
-            <span>Delivered</span>
-          </div>
-        </div>
-        <h3 class="mc-success-title">Message sent</h3>
-        <p class="mc-success-desc">
-          Your message has been sent. It may take a while for me to read and reply, as I go through every message personally.
-        </p>
+      <section class="mc-success-card" id="mc-success-card" aria-live="polite" aria-hidden="true" aria-labelledby="mc-success-title">
+        <div class="mc-success-header"><div class="mc-success-badge"><span class="mc-success-icon" aria-hidden="true">&check;</span><span>Received</span></div></div>
+        <h2 class="mc-success-title" id="mc-success-title" tabindex="-1">Message submitted</h2>
+        <p class="mc-success-desc">Your message was accepted by the contact service. Email delivery can take a little longer, and this confirmation does not guarantee it has reached my inbox. I read messages personally and will reply when I can.</p>
         <div class="mc-success-note">
           <span class="mc-note-tag">Attachments &amp; continuation</span>
-          <p class="mc-note-text">
-            If you need to send an attachment or image as a continuation of this email, feel free to write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.
-          </p>
+          <p class="mc-note-text">If you need to send an attachment or continue the conversation, write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.</p>
         </div>
-        <div class="mc-success-footer">
-          <button type="button" class="mc-reset-btn" id="mc-reset-btn">
-            <span>Send another message</span>
-            <span class="mc-reset-arrow">&rarr;</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
+        <div class="mc-success-footer"><button type="button" class="mc-reset-btn" id="mc-reset-btn"><span>Send another message</span><span class="mc-reset-arrow" aria-hidden="true">&rarr;</span></button></div>
+      </section>
+    </section>
   </main>
 
-  <!-- Let's Talk modal -->
   <div id="about-modal" class="modal-overlay" aria-hidden="true">
-    <div class="modal-box about-modal-box" role="dialog" aria-modal="true" aria-label="Let's Talk">
-      <button class="modal-close" id="about-modal-close" aria-label="Close">&times;</button>
-      <h2 class="about-modal-title">Let&rsquo;s Talk</h2>
+    <div class="modal-box about-modal-box" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+      <button class="modal-close" id="about-modal-close" type="button" aria-label="Close">&times;</button>
+      <h2 class="about-modal-title" id="about-modal-title">Let&rsquo;s Talk</h2>
       <div class="about-modal-body">
         <p>If you want to reach out for anything, feel free to do so.</p>
         <p>Whether it&rsquo;s about one of my projects, a collaboration, an idea you want to discuss, or simply something you think I&rsquo;d find interesting, I&rsquo;m always open to hearing from people.</p>
@@ -839,325 +781,205 @@
   </footer>
 
   <script>
-    document.querySelectorAll('.foot-yr').forEach(function(el){ el.textContent = new Date().getFullYear(); });
+  (() => {
+    'use strict';
 
-    /* ── Let's Talk modal ── */
-    (function() {
-      var talkBtn    = document.getElementById('talk-btn') || document.getElementById('about-btn');
-      var aboutModal = document.getElementById('about-modal');
-      var aboutClose = document.getElementById('about-modal-close');
-      var lastFocus  = null;
+    document.querySelectorAll('.foot-yr').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
 
-      function openModal() {
-        lastFocus = document.activeElement;
-        aboutModal.removeAttribute('aria-hidden');
-        aboutModal.classList.add('open');
-        aboutClose.focus();
-      }
-      function closeModal() {
-        aboutModal.setAttribute('aria-hidden', 'true');
-        aboutModal.classList.remove('open');
-        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
-      }
+    // About modal: close on backdrop/Escape and restore keyboard focus.
+    const talkButton = document.getElementById('talk-btn');
+    const modal = document.getElementById('about-modal');
+    const modalClose = document.getElementById('about-modal-close');
+    let previousFocus = null;
+    function openModal() {
+      previousFocus = document.activeElement;
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('open');
+      modalClose.focus();
+    }
+    function closeModal() {
+      modal.setAttribute('aria-hidden', 'true');
+      modal.classList.remove('open');
+      if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+    }
+    talkButton?.addEventListener('click', openModal);
+    modalClose?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && modal?.classList.contains('open')) closeModal(); });
 
-      if (talkBtn) talkBtn.addEventListener('click', openModal);
-      if (aboutClose) aboutClose.addEventListener('click', closeModal);
-      if (aboutModal) {
-        aboutModal.addEventListener('click', function(e){ if (e.target === aboutModal) closeModal(); });
-      }
-      document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
-    })();
+    const form = document.getElementById('contact-form');
+    const nameInput = document.getElementById('mc-name');
+    const emailInput = document.getElementById('mc-email');
+    const subjectInput = document.getElementById('mc-subject');
+    const messageEditor = document.getElementById('mc-body');
+    const status = document.getElementById('mc-status');
+    const sendButton = document.getElementById('mc-send-btn');
+    const sendButtonText = sendButton.querySelector('.mc-send-text');
+    const successCard = document.getElementById('mc-success-card');
+    const resetButton = document.getElementById('mc-reset-btn');
+    const fromRow = document.getElementById('mc-from-row');
+    const subjectRow = document.getElementById('mc-subject-row');
+    const honeypot = document.getElementById('mc-website');
+    const accessKey = form.querySelector('[name="access_key"]').value;
+    let submitting = false;
 
-    /* ── Mail composer ── */
-    (function() {
-      var form         = document.getElementById('contact-form');
-      var nameInput    = document.getElementById('mc-name');
-      var emailInput   = document.getElementById('mc-email');
-      var subjectInput = document.getElementById('mc-subject');
-      var body         = document.getElementById('mc-body');
-      var hidden       = document.getElementById('mc-hidden');
-      var status       = document.getElementById('mc-status');
-      var sendBtn      = document.getElementById('mc-send-btn');
-      var fromRow      = document.getElementById('mc-from-row');
-      var subjectRow   = document.getElementById('mc-subject-row');
-      var successCard  = document.getElementById('mc-success-card');
-      var resetBtn     = document.getElementById('mc-reset-btn');
-
-      /* Placeholder toggle */
-      function updateEmpty() {
-        var text = body.innerText || '';
-        body.classList.toggle('empty', text.trim() === '');
-      }
-      body.addEventListener('input', updateEmpty);
-      body.addEventListener('focus', updateEmpty);
-      body.addEventListener('blur', updateEmpty);
-      body.addEventListener('paste', function() { setTimeout(updateEmpty, 10); });
-      updateEmpty();
-
-      /* Toolbar command execution */
-      var tools = document.querySelectorAll('.mc-tool');
-      tools.forEach(function(btn) {
-        btn.addEventListener('mousedown', function(e) { e.preventDefault(); });
-        btn.addEventListener('click', function() {
-          body.focus();
-          var cmd = btn.dataset.cmd;
-          document.execCommand(cmd, false, null);
-          updateToolbarState();
-          updateEmpty();
+    function updateEditorPlaceholder() {
+      messageEditor.classList.toggle('empty', messageEditor.innerText.trim() === '');
+    }
+    function setStatus(message, isError = false) {
+      // Use textContent for API messages: never inject remote response text as HTML.
+      status.textContent = message;
+      status.classList.toggle('mc-status-error', isError);
+    }
+    function clearErrorState() {
+      fromRow.classList.remove('mc-row-error');
+      subjectRow.classList.remove('mc-row-error');
+      messageEditor.classList.remove('mc-body-error');
+      status.classList.remove('mc-status-error');
+    }
+    function setSending(isSending) {
+      submitting = isSending;
+      sendButton.disabled = isSending;
+      sendButtonText.textContent = isSending ? 'Sending…' : 'Send message';
+      form.setAttribute('aria-busy', String(isSending));
+    }
+    function showSuccess() {
+      form.classList.add('is-hidden');
+      window.setTimeout(() => {
+        form.hidden = true;
+        successCard.style.display = 'block';
+        successCard.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => {
+          successCard.classList.add('is-visible');
+          successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
-      });
+        successCard.querySelector('h2')?.focus({ preventScroll: true });
+      }, 300);
+    }
 
-      function updateToolbarState() {
-        tools.forEach(function(btn) {
-          var cmd = btn.dataset.cmd;
-          if (cmd === 'removeFormat' || cmd === 'insertUnorderedList' || cmd === 'insertOrderedList') return;
-          try {
-            btn.classList.toggle('active', document.queryCommandState(cmd));
-          } catch (e) {}
-        });
+    messageEditor.addEventListener('input', () => {
+      updateEditorPlaceholder();
+      messageEditor.classList.remove('mc-body-error');
+      if (status.classList.contains('mc-status-error')) setStatus('');
+    });
+    [nameInput, emailInput].forEach((input) => input.addEventListener('input', () => {
+      fromRow.classList.remove('mc-row-error');
+      if (status.classList.contains('mc-status-error')) setStatus('');
+    }));
+    subjectInput.addEventListener('input', () => {
+      subjectRow.classList.remove('mc-row-error');
+      if (status.classList.contains('mc-status-error')) setStatus('');
+    });
+    messageEditor.addEventListener('paste', () => window.setTimeout(updateEditorPlaceholder, 0));
+    updateEditorPlaceholder();
+
+    // Keep formatting controls, but only allow the intended editing commands.
+    document.querySelectorAll('.mc-tool').forEach((button) => {
+      button.addEventListener('mousedown', (event) => event.preventDefault());
+      button.addEventListener('click', () => {
+        const command = button.dataset.cmd;
+        const allowed = ['bold', 'italic', 'underline', 'insertUnorderedList', 'insertOrderedList', 'removeFormat'];
+        if (!allowed.includes(command)) return;
+        messageEditor.focus();
+        document.execCommand(command, false, null);
+        updateEditorPlaceholder();
+        if (['bold', 'italic', 'underline'].includes(command)) {
+          try { button.classList.toggle('active', document.queryCommandState(command)); } catch (_) { /* unsupported browser command state */ }
+        }
+      });
+    });
+
+    form.addEventListener('keydown', (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+        event.preventDefault();
+        form.requestSubmit();
+      }
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+      clearErrorState();
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const subject = subjectInput.value.trim();
+      const messageText = messageEditor.innerText.replace(/\u00a0/g, ' ').trim();
+
+      if (!name) { fromRow.classList.add('mc-row-error'); nameInput.focus(); setStatus('Please enter your name.', true); return; }
+      if (!email || !emailInput.checkValidity()) { fromRow.classList.add('mc-row-error'); emailInput.focus(); setStatus('Please enter a valid email address.', true); return; }
+      if (!subject) { subjectRow.classList.add('mc-row-error'); subjectInput.focus(); setStatus('Please add a subject.', true); return; }
+      if (!messageText) { messageEditor.classList.add('mc-body-error'); messageEditor.focus(); setStatus('Please write a message before sending.', true); return; }
+      if (honeypot.value.trim()) { setStatus('Your message could not be submitted.', true); return; }
+
+      const liveHosts = ['xensenx.dev', 'www.xensenx.dev'];
+      if (!liveHosts.includes(window.location.hostname)) {
+        setStatus('This contact form is configured for xensenx.dev. Please test the deployed site or email hello@xensenx.dev directly.', true);
+        return;
       }
 
-      body.addEventListener('keyup', updateToolbarState);
-      body.addEventListener('mouseup', updateToolbarState);
-      body.addEventListener('selectionchange', updateToolbarState);
+      const subjectLine = `${subject} — [sent from xensenx.dev]`;
+      // Submit plain text to avoid sending raw contenteditable HTML as message text.
+      const payload = {
+        access_key: accessKey,
+        subject: subjectLine,
+        from_name: name,
+        name,
+        email,
+        replyto: email,
+        message: `${messageText}
 
-      /* Keyboard shortcut: Ctrl+Enter / Cmd+Enter to send */
-      form.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-          e.preventDefault();
-          form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit', { cancelable: true }));
-        }
-      });
+— sent from xensenx.dev`,
+        botcheck: ''
+      };
 
-      /* Clear validation errors when typing */
-      nameInput.addEventListener('input', function() {
-        fromRow.classList.remove('mc-row-error');
-        clearStatus();
-      });
-      emailInput.addEventListener('input', function() {
-        fromRow.classList.remove('mc-row-error');
-        clearStatus();
-      });
-      subjectInput.addEventListener('input', function() {
-        subjectRow.classList.remove('mc-row-error');
-        clearStatus();
-      });
-      body.addEventListener('input', function() {
-        body.classList.remove('mc-body-error');
-        clearStatus();
-      });
-
-      function clearStatus() {
-        if (status.classList.contains('mc-status-error')) {
-          status.innerHTML = '';
-          status.className = 'mc-status';
-        }
-      }
-
-      /* Human-friendly error mapper for Web3Forms responses */
-      function mapWeb3FormsError(errData, httpStatus) {
-        var rawMsg = '';
-        if (typeof errData === 'string') {
-          rawMsg = errData;
-        } else if (errData && errData.message) {
-          rawMsg = errData.message;
-        }
-
-        var lower = rawMsg.toLowerCase();
-
-        if (httpStatus === 429 || lower.indexOf('rate limit') !== -1 || lower.indexOf('too many') !== -1) {
-          return 'Too many messages sent in a short time. Please wait a few moments, or write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        if (lower.indexOf('domain') !== -1 || lower.indexOf('not authorized') !== -1 || lower.indexOf('unauthorized') !== -1) {
-          return 'This contact form is verified exclusively for <strong>xensenx.dev</strong>. In local preview, please write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        if (lower.indexOf('email') !== -1 || lower.indexOf('disposable') !== -1) {
-          return 'The email address could not be delivered to. Please check the address or write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        if (lower.indexOf('spam') !== -1 || lower.indexOf('bot') !== -1 || lower.indexOf('honeypot') !== -1) {
-          return 'Verification check could not be completed. Please write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        if (httpStatus === 401 || httpStatus === 403 || lower.indexOf('key') !== -1) {
-          return 'Service key authentication issue. Please reach out directly at <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        if (httpStatus >= 500) {
-          return 'The mail delivery service is temporarily unreachable. Please send your message directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        if (lower.indexOf('network') !== -1 || lower.indexOf('fetch') !== -1 || (typeof navigator !== 'undefined' && navigator.onLine === false)) {
-          return 'Network request failed (possibly blocked by an ad-blocker or offline status). You can email <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a> directly.';
-        }
-        if (rawMsg) {
-          return rawMsg + ' &mdash; You can write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-        }
-        return 'Could not dispatch message. Please write directly to <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a>.';
-      }
-
-      /* Form submission handler */
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        var name    = nameInput.value.trim();
-        var email   = emailInput.value.trim();
-        var subject = subjectInput.value.trim();
-        var message = (body.innerText || '').trim();
-
-        /* Custom validation without native white popups */
-        var hasError = false;
-        var firstErrorField = null;
-
-        if (!name || !email) {
-          fromRow.classList.add('mc-row-error');
-          hasError = true;
-          firstErrorField = firstErrorField || (!name ? nameInput : emailInput);
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          fromRow.classList.add('mc-row-error');
-          hasError = true;
-          firstErrorField = firstErrorField || emailInput;
-        }
-
-        if (!subject) {
-          subjectRow.classList.add('mc-row-error');
-          hasError = true;
-          firstErrorField = firstErrorField || subjectInput;
-        }
-
-        if (!message) {
-          body.classList.add('mc-body-error');
-          hasError = true;
-          firstErrorField = firstErrorField || body;
-        }
-
-        if (hasError) {
-          status.innerHTML = 'Please fill in your name, a valid email address, subject, and message.';
-          status.className = 'mc-status mc-status-error';
-          if (firstErrorField && typeof firstErrorField.focus === 'function') {
-            firstErrorField.focus();
-          }
-          return;
-        }
-
-        /* Check live domain restriction before attempting or claiming false positives */
-        var isLiveDomain = (window.location.hostname === 'xensenx.dev' || window.location.hostname === 'www.xensenx.dev');
-        if (!isLiveDomain) {
-          sendBtn.disabled = false;
-          sendBtn.querySelector('.mc-send-text').textContent = 'Send message';
-          status.className = 'mc-status mc-status-error';
-          status.innerHTML = '<strong>Localhost preview notice:</strong> This key is domain-restricted to <code>xensenx.dev</code>. Web3Forms blocks inbox delivery from localhost to prevent quota abuse. To verify real inbox delivery, test on <a href="https://xensenx.dev/contact" class="mc-mail-link" target="_blank" rel="noopener">xensenx.dev/contact</a> or email <a href="mailto:hello@xensenx.dev" class="mc-mail-link">hello@xensenx.dev</a> directly.';
-          return;
-        }
-
-        /* Header prepended so Sen recognizes message origin in inbox */
-        var headerNotice = '<p style="font-size:12px;color:#888888;margin:0 0 16px 0;padding-bottom:8px;border-bottom:1px solid #444444;">&lt;sent from xensenx.dev&gt;</p>';
-        var fullMessageHtml = headerNotice + body.innerHTML;
-
-        /* Sync contenteditable HTML to hidden textarea */
-        hidden.value = fullMessageHtml;
-
-        /* Prepare payload with <sent from xensenx.dev> */
-        var fullSubject = subject + ' \u2014 <sent from xensenx.dev>';
-        document.getElementById('mc-subject-field').value = fullSubject;
-
-        /* Set sending UI state */
-        sendBtn.disabled = true;
-        sendBtn.querySelector('.mc-send-text').textContent = 'Sending\u2026';
-        status.innerHTML = 'Connecting to mail service\u2026';
-        status.className = 'mc-status';
-
-        var payload = {
-          access_key: 'e3484fe8-1916-4d0a-96d9-411246c55ce4',
-          subject:    fullSubject,
-          name:       name,
-          email:      email,
-          message:    fullMessageHtml,
-          botcheck:   false
-        };
-
-        fetch('https://api.web3forms.com/submit', {
-          method:  'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept':       'application/json'
-          },
+      setSending(true);
+      setStatus('Submitting your message…');
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
-        })
-        .then(function(res) {
-          var contentType = res.headers.get('content-type') || '';
-          if (contentType.indexOf('application/json') !== -1) {
-            return res.json().then(function(data) {
-              return { ok: res.ok, status: res.status, data: data };
-            });
-          } else {
-            return res.text().then(function(text) {
-              return { ok: res.ok, status: res.status, text: text };
-            });
-          }
-        })
-        .then(function(result) {
-          if (result.ok && result.data && result.data.success === true) {
-            /* Smooth transition out of composer and into success card */
-            form.classList.add('is-hidden');
-            setTimeout(function() {
-              form.style.display = 'none';
-              successCard.style.display = 'block';
-              successCard.removeAttribute('aria-hidden');
-              /* Force reflow for smooth opacity/transform transition */
-              void successCard.offsetHeight;
-              successCard.classList.add('is-visible');
-              successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 300);
-          } else {
-            var errData = (result.data) ? result.data : { message: 'HTTP ' + result.status };
-            var friendlyMsg = mapWeb3FormsError(errData, result.status);
-            sendBtn.disabled = false;
-            sendBtn.querySelector('.mc-send-text').textContent = 'Send message';
-            status.innerHTML = friendlyMsg;
-            status.className = 'mc-status mc-status-error';
-          }
-        })
-        .catch(function(networkErr) {
-          sendBtn.disabled = false;
-          sendBtn.querySelector('.mc-send-text').textContent = 'Send message';
-          var friendlyMsg = mapWeb3FormsError(networkErr, 0);
-          status.innerHTML = friendlyMsg;
-          status.className = 'mc-status mc-status-error';
         });
-      });
+        let result;
+        try { result = await response.json(); }
+        catch (_) { throw new Error(`The contact service returned an unreadable response (HTTP ${response.status}).`); }
 
-      /* Reset button handler: returns smoothly to compose form */
-      if (resetBtn) {
-        resetBtn.addEventListener('click', function() {
-          successCard.classList.remove('is-visible');
-          setTimeout(function() {
-            successCard.style.display = 'none';
-            successCard.setAttribute('aria-hidden', 'true');
+        if (!response.ok || result.success !== true) {
+          const message = typeof result.message === 'string' ? result.message : `Submission failed (HTTP ${response.status}).`;
+          throw new Error(message);
+        }
 
-            /* Reset form fields */
-            nameInput.value = '';
-            emailInput.value = '';
-            subjectInput.value = '';
-            body.innerHTML = '';
-            hidden.value = '';
-            updateEmpty();
-
-            sendBtn.disabled = false;
-            sendBtn.querySelector('.mc-send-text').textContent = 'Send message';
-            status.innerHTML = '';
-            status.className = 'mc-status';
-
-            fromRow.classList.remove('mc-row-error');
-            subjectRow.classList.remove('mc-row-error');
-            body.classList.remove('mc-body-error');
-
-            form.style.display = 'block';
-            void form.offsetHeight;
-            form.classList.remove('is-hidden');
-            nameInput.focus();
-          }, 300);
-        });
+        setSending(false);
+        showSuccess();
+      } catch (error) {
+        setSending(false);
+        const message = error instanceof Error ? error.message : 'An unexpected error occurred.';
+        setStatus(`We couldn't confirm the submission: ${message} If the issue persists, email hello@xensenx.dev directly.`, true);
       }
-    })();
-  </script>
+    });
 
+    resetButton.addEventListener('click', () => {
+      successCard.classList.remove('is-visible');
+      window.setTimeout(() => {
+        successCard.style.display = 'none';
+        successCard.setAttribute('aria-hidden', 'true');
+        form.hidden = false;
+        form.reset();
+        nameInput.value = '';
+        emailInput.value = '';
+        subjectInput.value = '';
+        messageEditor.innerHTML = '';
+        updateEditorPlaceholder();
+        clearErrorState();
+        setStatus('');
+        setSending(false);
+        form.classList.remove('is-hidden');
+        nameInput.focus();
+      }, 300);
+    });
+  })();
+  </script>
   <script src="src/js/particles.js"></script>
   <script src="src/js/contact-flow.js"></script>
   <script src="src/js/ambient.js"></script>
