@@ -11,69 +11,28 @@
 (function () {
   "use strict";
 
-  /* ── Memory & behavior for article "back" links ──
-     Records the visited section (posts, work, contact, about, index) so
-     detail pages (posts, research, about) know where the user arrived from.
-     Also handles clean URLs vs .html extensions and utilizes browser history
-     when available so returning preserves scroll position. */
+  /* ── Configure article "back" links ──
+     Ensures articles and subpages reliably return to their parent section:
+     - Posts (/posts/*) -> posts section (/posts on production, ../posts.html on localhost)
+     - Research (/research/*) -> work section (/work on production, ../work.html on localhost)
+     - About (/about) -> mind section (/ on production, index.html on localhost) */
   try {
     var rawPath = window.location.pathname.replace(/\\/g, "/");
-    var cleanPath = rawPath.replace(/\/+$/, "");
-    var file = cleanPath.split("/").pop() || "index.html";
-    var section = file.replace(/\.html$/i, "") || "index";
-    var inSubfolder = rawPath.indexOf("/posts/") !== -1 ||
-                      rawPath.indexOf("/research/") !== -1;
+    var inPosts = rawPath.indexOf("/posts/") !== -1;
+    var inResearch = rawPath.indexOf("/research/") !== -1;
     var isClean = (rawPath.indexOf(".html") === -1 && window.location.protocol !== "file:");
-
-    // If on a top-level section page, record it as the user's previous section
-    if (!inSubfolder && (section === "posts" || section === "work" || section === "contact" || section === "about" || section === "index")) {
-      sessionStorage.setItem("xsn_prev_section", section);
-      var prevPage = isClean ? (section === "index" ? "" : section) : (section === "index" ? "index.html" : (section + ".html"));
-      sessionStorage.setItem("xsn_prev_page", prevPage);
-    }
 
     var backLink = document.querySelector("a[data-back]");
     if (backLink) {
-      var storedSection = sessionStorage.getItem("xsn_prev_section");
-      
-      // Determine default parent section if no session history exists
-      var defaultSection = "index";
-      if (rawPath.indexOf("/posts/") !== -1) {
-        defaultSection = "posts";
-      } else if (rawPath.indexOf("/research/") !== -1) {
-        defaultSection = "work";
-      }
-
-      var targetSection = storedSection || defaultSection;
-      var prefix = inSubfolder ? "../" : "";
-      var targetHref;
-
-      if (targetSection === "index") {
-        targetHref = inSubfolder ? (isClean ? "../" : "../index.html") : (isClean ? "/" : "index.html");
+      if (inPosts) {
+        backLink.setAttribute("href", isClean ? "/posts" : "../posts.html");
+      } else if (inResearch) {
+        backLink.setAttribute("href", isClean ? "/work" : "../work.html");
       } else {
-        targetHref = prefix + (isClean ? targetSection : (targetSection + ".html"));
+        backLink.setAttribute("href", isClean ? "/" : "index.html");
       }
-
-      backLink.setAttribute("href", targetHref);
-
-      // When clicked, if the user navigated here from within the same domain,
-      // use history.back() to preserve scroll position and filter state.
-      backLink.addEventListener("click", function (e) {
-        if (document.referrer && document.referrer.indexOf(window.location.origin) === 0) {
-          try {
-            var refUrl = new URL(document.referrer);
-            var refClean = refUrl.pathname.replace(/\/+$/, "");
-            var curClean = window.location.pathname.replace(/\/+$/, "");
-            if (refClean && refClean !== curClean) {
-              e.preventDefault();
-              window.history.back();
-              return;
-            }
-          } catch (_) {}
-        }
-      });
     }
-  } catch (err) { /* storage unavailable - links keep their defaults */ }
+  } catch (err) { /* Keep static HTML default */ }
 
   var header   = document.querySelector("header") || document.querySelector(".article-nav");
   if (!header) return;

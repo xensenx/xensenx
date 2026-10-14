@@ -37,13 +37,6 @@
     }
   });
 
-  /* ── Remember this page so article "← back" links can return here ──
-     nav.js records sub-pages and rewrites article back links; index
-     records itself here. Falls back silently without storage. */
-  try {
-    sessionStorage.setItem("xsn_prev_section", "index");
-    sessionStorage.setItem("xsn_prev_page", "index.html");
-  } catch (err) { /* storage unavailable — links keep their defaults */ }
 
   /* ── Clicking the xensenx logo resets the flash ─────────────── */
   if (navNameEl) {
