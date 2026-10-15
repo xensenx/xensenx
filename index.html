@@ -32,7 +32,7 @@
   <!-- Preload fonts for speed -->
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="src/css/style.css" />
+  <link rel="stylesheet" href="src/css/style.css?v=2.8" />
 </head>
 <body>
 
@@ -48,6 +48,10 @@
 
   <!-- ─── MAIN PAGE ────────────────────────────────────────── -->
   <main id="main-page" class="hidden">
+
+    <div class="mind-art-wrap" aria-hidden="true">
+      <canvas id="mind-art-canvas"></canvas>
+    </div>
 
     <header>
       <nav>
@@ -115,7 +119,7 @@
           <p class="vlog-label">Featured Posts</p>
           <div class="cards-grid">
 
-            <a class="card" href="posts/visual-identity-license-v1.html">
+            <a class="card" href="posts/visual-identity-license-v1.html?from=mind">
               <div class="card-img-wrap">
                 <img src="assets/Blog_banners/VIL_V1.jpeg" alt="Visual Identity License v1" width="1280" height="1280" loading="lazy" />
               </div>
@@ -125,7 +129,7 @@
               </div>
             </a>
 
-            <a class="card" href="posts/one-of-my-poems.html">
+            <a class="card" href="posts/one-of-my-poems.html?from=mind">
               <div class="card-img-wrap">
                 <img src="assets/Blog_banners/source_of_me.jpeg" alt="One of my poems" width="1280" height="1280" loading="lazy" />
               </div>
@@ -135,7 +139,7 @@
               </div>
             </a>
 
-            <a class="card" href="posts/everyday-another-chance.html">
+            <a class="card" href="posts/everyday-another-chance.html?from=mind">
               <div class="card-img-wrap">
                 <img src="assets/Blog_banners/Everyday_another_chance.jpeg" alt="Everyday Another Chance" width="1250" height="1250" loading="lazy" />
               </div>
@@ -172,6 +176,7 @@
   <script src="src/js/main.js"></script>
   <script src="src/js/particles.js"></script>
   <script src="src/js/ambient.js"></script>
+  <script src="src/js/mind-waves.js?v=4.4"></script>
   <script src="src/js/scroll-effects.js"></script>
   <script src="src/js/dict.js"></script>
 </body>

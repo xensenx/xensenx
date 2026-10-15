@@ -1,4 +1,4 @@
-﻿/* ─────────────────────────────────────────────────────────────
+/* ─────────────────────────────────────────────────────────────
    XENSENX — PORTFOLIO
    Palette:  bg #363636   text #f5f5dc   muted #9a9282
    Fonts:    Berylium (headings)  LiberationSerif (body/posts)  ZTNature (UI/sans)
@@ -211,8 +211,12 @@ nav { display: flex; align-items: center; justify-content: space-between; }
 .section-wrap { /* simple semantic container */ }
 
 .sticky-section {
+  position: relative;
   width: 100%;
-  background-color: var(--bg);
+  /* Transparent — body's #363636 is the floor; the fixed canvas sits above it.
+     Sections are above the canvas (z-index 10–40) so their children always
+     paint over the bubbles, but the bubbles glow through the transparent gaps. */
+  background-color: transparent;
   overflow: hidden;
   will-change: transform, filter, opacity;
   transition: transform 0.06s linear, filter 0.06s linear, opacity 0.06s linear;
@@ -233,6 +237,33 @@ nav { display: flex; align-items: center; justify-content: space-between; }
   padding: 2rem var(--edge);
 }
 
+/* ── Mind Ambient Waves & Hand-Drawn Contours ── */
+.mind-art-wrap {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  animation: fade-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+#mind-art-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mind-headline,
+.mind-bio,
+.scroll-cue {
+  position: relative;
+  z-index: 2;
+}
+
 .about-card {
   border-radius: 12px;
   text-decoration: none; color: inherit;
@@ -241,6 +272,7 @@ nav { display: flex; align-items: center; justify-content: space-between; }
   max-width: 520px; width: 100%;
   border: 1px solid var(--faint);
   overflow: hidden;
+  background-color: var(--bg); /* covers canvas fully */
   transition: border-color 0.3s ease;
   cursor: var(--cursor-paw);
 }
@@ -371,6 +403,8 @@ nav { display: flex; align-items: center; justify-content: space-between; }
 }
 
 .quote-inner {
+  position: relative;
+  z-index: 2;
   display: flex; flex-direction: column; align-items: center;
   gap: 1.2rem;
 }
@@ -419,10 +453,13 @@ nav { display: flex; align-items: center; justify-content: space-between; }
 
 /* Card is now an anchor — remove default link styles */
 .card {
+  position: relative;
+  z-index: 2;
   text-decoration: none;
   color: inherit;
   display: block;
   border-radius: 16px;   /* rounded hover surface — shadow follows this, no sharp corners */
+  background-color: var(--bg); /* completely hides bubbles behind both image and text */
   cursor: var(--cursor-paw);
 }
 
@@ -433,6 +470,7 @@ nav { display: flex; align-items: center; justify-content: space-between; }
   overflow: hidden;
   border-radius: 16px;
   margin-bottom: clamp(0.9rem, 1.8vh, 1.2rem);
+  background-color: var(--bg); /* ensures image block covers canvas fully */
 }
 
 .card-img-wrap img {
@@ -1920,6 +1958,7 @@ body.reading-mode { /* flag class checked in particles.js */ }
   }
   .word-sens  { letter-spacing: -0.02em; }
   .mind-bio   { font-size: 1rem; }
+  .mind-art-wrap { width: 100%; opacity: 0.45; }
   .article-content { padding: 2rem 1.4rem 5rem; }
   .privacy-page { padding: 6rem 1.4rem 4rem; }
   .posts-page { padding: 6rem 1.4rem 4rem; }
@@ -2088,6 +2127,10 @@ body.reading-mode { /* flag class checked in particles.js */ }
     animation: none;
     opacity: 1;
     transform: none;
+  }
+  .mind-art-wrap {
+    animation: none;
+    opacity: 0.85;
   }
 
   #cursor { animation: none; }

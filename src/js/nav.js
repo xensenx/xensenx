@@ -25,7 +25,66 @@
     var backLink = document.querySelector("a[data-back]");
     if (backLink) {
       if (inPosts) {
-        backLink.setAttribute("href", isClean ? "/posts" : "../posts.html");
+        // Detect whether this post was opened from the mind section (e.g. featured posts)
+        var search = window.location.search || "";
+        var isFromMind = /[?&]from=mind(?:&|$)/.test(search);
+
+        // Fallback: inspect document.referrer if opened within same origin
+        if (!isFromMind && document.referrer) {
+          try {
+            var refUrl = new URL(document.referrer);
+            if (refUrl.origin === window.location.origin) {
+              var refPath = refUrl.pathname.replace(/\\/g, "/");
+              var isMindRef = (refPath === "" || refPath === "/" || refPath.slice(-11) === "/index.html" || refPath === "index.html")
+                && refPath.indexOf("/posts") === -1
+                && refPath.indexOf("/work") === -1
+                && refPath.indexOf("/contact") === -1;
+              if (isMindRef) {
+                isFromMind = true;
+              }
+            }
+          } catch (refErr) {
+            if (document.referrer.indexOf("index.html") !== -1 && document.referrer.indexOf("posts") === -1) {
+              isFromMind = true;
+            }
+          }
+        }
+
+        if (isFromMind) {
+          backLink.setAttribute("href", isClean ? "/" : "../index.html");
+          backLink.setAttribute("aria-label", "Back to mind");
+        } else {
+          backLink.setAttribute("href", isClean ? "/posts" : "../posts.html");
+          backLink.setAttribute("aria-label", "Back to posts");
+        }
+
+        // Intercept click: if valid history exists matching the intended section,
+        // use history.back() for instant scroll & state restoration.
+        backLink.addEventListener("click", function (e) {
+          // Allow modifier clicks (Cmd/Ctrl/Shift/Alt/middle-click) to open link target naturally
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+            return;
+          }
+
+          if (window.history.length > 1 && document.referrer) {
+            try {
+              var ref = new URL(document.referrer);
+              if (ref.origin === window.location.origin) {
+                var p = ref.pathname.replace(/\\/g, "/");
+                var cameFromMind = (p === "" || p === "/" || p.slice(-11) === "/index.html" || p === "index.html")
+                  && p.indexOf("/posts") === -1 && p.indexOf("/work") === -1;
+                var cameFromPosts = p.indexOf("/posts") !== -1;
+
+                if ((isFromMind && cameFromMind) || (!isFromMind && cameFromPosts)) {
+                  e.preventDefault();
+                  window.history.back();
+                  return;
+                }
+              }
+            } catch (clickErr) { /* Fall through to default href navigation */ }
+          }
+        });
+
       } else if (inResearch) {
         backLink.setAttribute("href", isClean ? "/work" : "../work.html");
       } else {

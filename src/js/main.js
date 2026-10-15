@@ -37,6 +37,16 @@
     }
   });
 
+  /* ── BFCache restore — restore scroll on pageshow ───────────── */
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      const savedY = parseInt(sessionStorage.getItem(SCROLL_KEY) || "0", 10);
+      if (savedY > 0) {
+        window.scrollTo(0, savedY);
+      }
+    }
+  });
+
 
   /* ── Clicking the xensenx logo resets the flash ─────────────── */
   if (navNameEl) {
