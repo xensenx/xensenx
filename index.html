@@ -32,7 +32,7 @@
   <!-- Preload fonts for speed -->
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="src/css/style.css?v=2.8" />
+  <link rel="stylesheet" href="src/css/style.css?v=2.9" />
 </head>
 <body>
 
@@ -55,8 +55,30 @@
 
     <header>
       <nav>
-        <!-- id="nav-logo" → main.js attaches click-to-replay-flash -->
-        <a id="nav-logo" class="nav-name" href="#">xensenx</a>
+        <div class="nav-dropdown-wrap">
+          <button id="nav-logo" class="nav-name nav-dropdown-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-dropdown-menu">
+            <span class="nav-name-text">xensenx</span>
+            <span class="nav-dropdown-caret" aria-hidden="true">&#x25BE;</span>
+          </button>
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Site menu">
+            <button type="button" class="nav-dropdown-item" id="nav-open-settings" role="menuitem">
+              <span>settings</span>
+            </button>
+            <a href="about.html" class="nav-dropdown-item" role="menuitem">
+              <span>about</span>
+            </a>
+            <a href="privacy.html" class="nav-dropdown-item" role="menuitem">
+              <span>privacy-policy</span>
+            </a>
+            <a href="contact.html" class="nav-dropdown-item" role="menuitem">
+              <span>contact</span>
+            </a>
+            <div class="nav-dropdown-divider"></div>
+            <button type="button" class="nav-dropdown-item" id="nav-refresh-flash" role="menuitem">
+              <span>refresh</span>
+            </button>
+          </div>
+        </div>
         <div class="nav-links">
           <a href="index.html" aria-current="page">mind</a>
           <a href="posts.html">posts</a><a href="work.html">work</a>
@@ -171,6 +193,77 @@
       </div>
     </footer>
 
+    <!-- ─── SETTINGS MODAL ─────────────────────────────────────── -->
+    <div id="settings-modal" class="modal-overlay settings-modal-overlay" aria-hidden="true">
+      <div class="settings-modal-box" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+        <div class="settings-modal-header">
+          <div class="settings-modal-badge">
+            <span class="settings-badge-dot"></span>
+            <span class="settings-badge-text">preferences</span>
+          </div>
+          <button class="modal-close settings-modal-close" id="settings-modal-close" type="button" aria-label="Close settings">&times;</button>
+        </div>
+
+        <div class="settings-modal-title-wrap">
+          <h2 class="settings-modal-title" id="settings-modal-title">Settings</h2>
+          <p class="settings-modal-subtitle">Customize your experience on xensenx.dev</p>
+        </div>
+
+        <div class="settings-modal-divider"></div>
+
+        <div class="settings-modal-body">
+          <div class="settings-section">
+            <div class="settings-section-header">
+              <span class="settings-section-label">Audio &amp; Music</span>
+            </div>
+
+            <div class="settings-row">
+              <div class="settings-row-info">
+                <div class="settings-row-title">Background Music</div>
+                <div class="settings-row-desc">Play relaxing lo-fi background ambiance while you explore</div>
+              </div>
+              <div class="settings-row-control">
+                <label class="settings-switch" for="setting-audio-toggle">
+                  <input type="checkbox" id="setting-audio-toggle" aria-label="Toggle background music" />
+                  <span class="settings-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-row settings-volume-row">
+              <div class="settings-row-info">
+                <div class="settings-row-title">Music Volume</div>
+                <div class="settings-row-desc">Adjust background playback level</div>
+              </div>
+              <div class="settings-row-control settings-volume-control">
+                <span class="settings-volume-icon" id="settings-volume-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </span>
+                <input type="range" id="setting-audio-volume" min="0" max="100" value="40" class="settings-range-slider" aria-label="Music volume" />
+                <span class="settings-volume-value" id="settings-volume-value">40%</span>
+              </div>
+            </div>
+
+            <div class="settings-audio-credit">
+              <div class="settings-credit-info">
+                <div class="settings-credit-header">
+                  <span class="settings-credit-pulse" id="audio-status-dot" aria-hidden="true"></span>
+                  <span class="settings-track-title">Lo-Fi Hip Hop Galaxy</span>
+                </div>
+                <div class="settings-credit-artist">
+                  Music by <a href="https://www.youtube.com/channel/UCx0_M61F81Nfb-BRXE-SeVA" target="_blank" rel="noopener noreferrer" class="settings-yt-link">Alex-Productions</a>
+                </div>
+              </div>
+              <a href="https://www.youtube.com/channel/UCx0_M61F81Nfb-BRXE-SeVA" target="_blank" rel="noopener noreferrer" class="settings-yt-badge">
+                <span>YouTube</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <script src="src/js/main.js"></script>
@@ -178,6 +271,7 @@
   <script src="src/js/ambient.js"></script>
   <script src="src/js/mind-waves.js?v=4.4"></script>
   <script src="src/js/scroll-effects.js"></script>
+  <script src="src/js/nav-dropdown.js?v=3.0"></script>
   <script src="src/js/dict.js"></script>
 </body>
 </html>

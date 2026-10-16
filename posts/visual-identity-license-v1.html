@@ -29,12 +29,35 @@
   <link rel="icon" type="image/svg+xml" href="../assets/site_icons/Site_icon.svg" />
   <link rel="icon" type="image/x-icon" href="../assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />
   <link rel="apple-touch-icon" href="../assets/site_icons/Site_icon.png" />
-  <link rel="stylesheet" href="../src/css/style.css" />
+  <link rel="stylesheet" href="../src/css/style.css?v=2.9" />
 </head>
 <body class="reading-mode">
   <nav class="article-nav">
     <a href="../posts.html" class="article-back" data-back>&larr; back</a>
-    <span class="nav-name">xensenx</span>
+    <div class="nav-dropdown-wrap">
+      <button class="nav-name nav-dropdown-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-dropdown-menu">
+        <span class="nav-name-text">xensenx</span>
+        <span class="nav-dropdown-caret" aria-hidden="true">&#x25BE;</span>
+      </button>
+      <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Site menu">
+        <button type="button" class="nav-dropdown-item" id="nav-open-settings" role="menuitem">
+          <span>settings</span>
+        </button>
+        <a href="../about.html" class="nav-dropdown-item" role="menuitem">
+          <span>about</span>
+        </a>
+        <a href="../privacy.html" class="nav-dropdown-item" role="menuitem">
+          <span>privacy-policy</span>
+        </a>
+        <a href="../contact.html" class="nav-dropdown-item" role="menuitem">
+          <span>contact</span>
+        </a>
+        <div class="nav-dropdown-divider"></div>
+        <button type="button" class="nav-dropdown-item" id="nav-refresh-flash" role="menuitem">
+          <span>refresh</span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <main class="article-page">
@@ -178,6 +201,7 @@ OR OTHER DEALINGS IN THE ASSETS.</pre>
   </footer>
   <script>document.querySelectorAll('.foot-yr').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
 <script src="../src/js/nav.js?v=3.1"></script>
+  <script src="../src/js/nav-dropdown.js?v=3.0"></script>
   <script src="../src/js/dict.js"></script>
 </body>
 </html>

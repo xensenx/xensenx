@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png">
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="src/css/style.css?v=2.6">
+  <link rel="stylesheet" href="src/css/style.css?v=2.9">
   <style>
 /* -------------------------------------------------------------
    CONTACT PAGE
@@ -795,7 +795,30 @@
 <body>
   <header>
     <nav>
-      <a class="nav-name" href="index.html">xensenx</a>
+      <div class="nav-dropdown-wrap">
+        <button id="nav-logo" class="nav-name nav-dropdown-btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="nav-dropdown-menu">
+          <span class="nav-name-text">xensenx</span>
+          <span class="nav-dropdown-caret" aria-hidden="true">&#x25BE;</span>
+        </button>
+        <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Site menu">
+          <button type="button" class="nav-dropdown-item" id="nav-open-settings" role="menuitem">
+            <span>settings</span>
+          </button>
+          <a href="about.html" class="nav-dropdown-item" role="menuitem">
+            <span>about</span>
+          </a>
+          <a href="privacy.html" class="nav-dropdown-item" role="menuitem">
+            <span>privacy-policy</span>
+          </a>
+          <a href="contact.html" class="nav-dropdown-item" role="menuitem" aria-current="page">
+            <span>contact</span>
+          </a>
+          <div class="nav-dropdown-divider"></div>
+          <button type="button" class="nav-dropdown-item" id="nav-refresh-flash" role="menuitem">
+            <span>refresh</span>
+          </button>
+        </div>
+      </div>
       <div class="nav-links">
         <a href="index.html">mind</a>
         <a href="posts.html">posts</a><a href="work.html">work</a>
@@ -1111,6 +1134,7 @@
   <script src="src/js/contact-flow.js"></script>
   <script src="src/js/ambient.js"></script>
   <script src="src/js/nav.js?v=3.1"></script>
+  <script src="src/js/nav-dropdown.js?v=3.0"></script>
   <script src="src/js/dict.js"></script>
 </body>
 </html>

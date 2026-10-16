@@ -48,15 +48,13 @@
   });
 
 
-  /* ── Clicking the xensenx logo resets the flash ─────────────── */
-  if (navNameEl) {
-    navNameEl.addEventListener("click", function (e) {
-      e.preventDefault();
-      sessionStorage.removeItem(SESSION_KEY);
-      sessionStorage.removeItem(SCROLL_KEY);
-      window.location.reload();
-    });
-  }
+  /* ── Replay flash helper (callable from settings or console) ── */
+  window.replayFlashScreen = function () {
+    sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SCROLL_KEY);
+    window.location.reload();
+  };
+
 
   /* ── Skip flash if already seen this session ─────────────────── */
   if (sessionStorage.getItem(SESSION_KEY)) {
