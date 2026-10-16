@@ -23,7 +23,6 @@
   const cursorEl       = document.getElementById("cursor");
   const pronunciationEl= document.getElementById("pronunciation");
   const mainPage       = document.getElementById("main-page");
-  const navNameEl      = document.getElementById("nav-logo");
 
   /* ── Manual scroll restoration — we handle it ourselves ────── */
   if ("scrollRestoration" in history) {

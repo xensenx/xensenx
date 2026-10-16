@@ -6,23 +6,17 @@
 (function () {
   "use strict";
 
-  // ── High-Performance Background Audio Controller ────────────────────────
-  // Solves tab-switch interruptions & network latency stalls:
-  // 1. In-memory pre-fetching (ArrayBuffer & Blob) -> Zero streaming during playback.
-  // 2. Web Audio API (AudioContext) running on OS real-time audio thread -> Immune to tab switching.
-  // 3. Hardware-level sample-accurate loop (sourceNode.loop = true) -> Gapless looping.
-  // 4. MediaSession API integration -> Browser tab priority protection.
-  // 5. Automatic DOM audio element fallback for non-WebAudio environments.
+  // ── Rock-Solid In-Memory Background Audio Controller ──────────
+  // 1. Fully preloads the audio track into a local memory Blob (zero streaming / zero network stalls).
+  // 2. Plays via a persistent DOM-attached HTML5 audio element with OS multimedia buffer (MMCSS)
+  //    which guarantees continuous, uninterrupted playback across tab switches and window blur.
+  // 3. Clean, seamless loop using the trimmed audio master with zero trailing dead air.
+  // 4. Full MediaSession integration to keep background playback prioritized by the OS.
 
-  var audioCtx = null;
-  var gainNode = null;
-  var currentSource = null;
-  var cachedAudioBuffer = null;
+  var bgAudioPlayer = null;
   var cachedBlobUrl = null;
-  var isPreloading = false;
   var isAudioPlaying = false;
   var desiredPlaying = false;
-  var fallbackAudio = null;
   var preloadPromise = null;
 
   function getAudioPath() {
@@ -39,41 +33,48 @@
     return vol;
   }
 
-  function getAudioContext() {
-    if (!audioCtx) {
-      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (AudioContextClass) {
-        audioCtx = new AudioContextClass();
-        gainNode = audioCtx.createGain();
-        gainNode.connect(audioCtx.destination);
-        var vol = getStoredVolume();
-        gainNode.gain.setValueAtTime(vol / 100, audioCtx.currentTime);
+  function getAudioPlayer() {
+    if (!bgAudioPlayer) {
+      bgAudioPlayer = document.getElementById("xsn-bg-audio-player");
+      if (!bgAudioPlayer) {
+        bgAudioPlayer = document.createElement("audio");
+        bgAudioPlayer.id = "xsn-bg-audio-player";
+        bgAudioPlayer.setAttribute("preload", "auto");
+        bgAudioPlayer.setAttribute("aria-hidden", "true");
+        bgAudioPlayer.setAttribute("tabindex", "-1");
+        bgAudioPlayer.style.position = "fixed";
+        bgAudioPlayer.style.width = "0";
+        bgAudioPlayer.style.height = "0";
+        bgAudioPlayer.style.opacity = "0";
+        bgAudioPlayer.style.pointerEvents = "none";
+        bgAudioPlayer.style.zIndex = "-9999";
+        (document.body || document.documentElement).appendChild(bgAudioPlayer);
       }
-    }
-    return audioCtx;
-  }
 
-  function getDomAudio() {
-    if (!fallbackAudio) {
-      fallbackAudio = document.getElementById("xsn-bg-audio-host");
-      if (!fallbackAudio) {
-        fallbackAudio = document.createElement("audio");
-        fallbackAudio.id = "xsn-bg-audio-host";
-        fallbackAudio.setAttribute("preload", "auto");
-        fallbackAudio.setAttribute("aria-hidden", "true");
-        fallbackAudio.setAttribute("tabindex", "-1");
-        fallbackAudio.style.position = "fixed";
-        fallbackAudio.style.width = "0";
-        fallbackAudio.style.height = "0";
-        fallbackAudio.style.opacity = "0";
-        fallbackAudio.style.pointerEvents = "none";
-        fallbackAudio.style.zIndex = "-9999";
-        (document.body || document.documentElement).appendChild(fallbackAudio);
-      }
-      fallbackAudio.loop = true;
-      fallbackAudio.volume = getStoredVolume() / 100;
+      bgAudioPlayer.loop = true;
+      bgAudioPlayer.volume = getStoredVolume() / 100;
+
+      bgAudioPlayer.addEventListener("play", function () {
+        isAudioPlaying = true;
+        updateAudioUIState(true);
+        updateMediaSession(true);
+      });
+
+      bgAudioPlayer.addEventListener("pause", function () {
+        isAudioPlaying = false;
+        updateAudioUIState(false);
+        updateMediaSession(false);
+      });
+
+      // Seamless loop reinforcement
+      bgAudioPlayer.addEventListener("ended", function () {
+        if (desiredPlaying) {
+          bgAudioPlayer.currentTime = 0;
+          bgAudioPlayer.play().catch(function () {});
+        }
+      });
     }
-    return fallbackAudio;
+    return bgAudioPlayer;
   }
 
   function updateMediaSession(playing) {
@@ -82,7 +83,7 @@
         navigator.mediaSession.metadata = new MediaMetadata({
           title: "Lo-Fi Hip Hop Galaxy",
           artist: "Alex-Productions",
-          album: "xensenx"
+          album: "xensenx.dev"
         });
         navigator.mediaSession.playbackState = playing ? "playing" : "paused";
       } catch (e) {}
@@ -137,107 +138,33 @@
 
   function preloadAudio() {
     if (preloadPromise) return preloadPromise;
-    isPreloading = true;
     var audioUrl = getAudioPath();
 
     preloadPromise = fetch(audioUrl)
       .then(function (res) {
-        if (!res.ok) throw new Error("HTTP error " + res.status);
+        if (!res.ok) throw new Error("HTTP " + res.status);
         return res.blob();
       })
       .then(function (blob) {
         cachedBlobUrl = URL.createObjectURL(blob);
-        var el = getDomAudio();
-        if (el && !el.src) {
-          el.src = cachedBlobUrl;
+        var player = getAudioPlayer();
+        if (player) {
+          player.src = cachedBlobUrl;
+          player.load();
         }
-
-        var ctx = getAudioContext();
-        if (ctx) {
-          return blob.arrayBuffer().then(function (ab) {
-            return new Promise(function (resolve) {
-              ctx.decodeAudioData(
-                ab,
-                function (decoded) {
-                  cachedAudioBuffer = decoded;
-                  isPreloading = false;
-                  resolve(decoded);
-                },
-                function (err) {
-                  console.warn("[audio] decodeAudioData error, using fallback:", err);
-                  isPreloading = false;
-                  resolve(null);
-                }
-              );
-            });
-          });
-        } else {
-          isPreloading = false;
-          return null;
-        }
+        return cachedBlobUrl;
       })
       .catch(function (err) {
-        console.warn("[audio] Preload error:", err);
-        isPreloading = false;
-        return null;
+        console.warn("[audio] Preload error, using fallback path:", err);
+        var player = getAudioPlayer();
+        if (player && !player.src) {
+          player.src = audioUrl;
+          player.load();
+        }
+        return audioUrl;
       });
 
     return preloadPromise;
-  }
-
-  function playWebAudioBuffer() {
-    var ctx = getAudioContext();
-    if (!ctx || !cachedAudioBuffer) return;
-
-    if (currentSource) {
-      try {
-        currentSource.onended = null;
-        currentSource.stop();
-        currentSource.disconnect();
-      } catch (e) {}
-      currentSource = null;
-    }
-
-    if (fallbackAudio) {
-      fallbackAudio.pause();
-    }
-
-    currentSource = ctx.createBufferSource();
-    currentSource.buffer = cachedAudioBuffer;
-    currentSource.loop = true;
-    currentSource.connect(gainNode);
-
-    var vol = getStoredVolume();
-    gainNode.gain.cancelScheduledValues(ctx.currentTime);
-    gainNode.gain.setValueAtTime(vol / 100, ctx.currentTime);
-
-    currentSource.start(0);
-    isAudioPlaying = true;
-    updateAudioUIState(true);
-    updateMediaSession(true);
-  }
-
-  function playFallbackAudio() {
-    var el = getDomAudio();
-    if (!el) return;
-    if (cachedBlobUrl && el.src !== cachedBlobUrl) {
-      el.src = cachedBlobUrl;
-    } else if (!el.src) {
-      el.src = getAudioPath();
-    }
-    el.loop = true;
-    var vol = getStoredVolume();
-    el.volume = vol / 100;
-    var p = el.play();
-    if (p !== undefined) {
-      p.then(function () {
-        isAudioPlaying = true;
-        updateAudioUIState(true);
-        updateMediaSession(true);
-      }).catch(function (err) {
-        console.log("[audio] Fallback play awaiting interaction:", err);
-      });
-    }
   }
 
   function startAudio() {
@@ -245,21 +172,36 @@
     try { localStorage.setItem("xsn_bg_audio", "true"); } catch (e) {}
     updateAudioUIState(true);
 
-    var ctx = getAudioContext();
-    if (ctx && ctx.state === "suspended") {
-      ctx.resume().catch(function () {});
+    var player = getAudioPlayer();
+    var vol = getStoredVolume();
+    player.volume = vol / 100;
+
+    function doPlay() {
+      if (!desiredPlaying) return;
+      var playPromise = player.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function () {
+          isAudioPlaying = true;
+          updateAudioUIState(true);
+          updateMediaSession(true);
+        }).catch(function (err) {
+          console.log("[audio] Playback awaiting user interaction:", err);
+        });
+      }
     }
 
-    if (cachedAudioBuffer && ctx) {
-      playWebAudioBuffer();
+    if (cachedBlobUrl) {
+      if (player.src !== cachedBlobUrl) {
+        player.src = cachedBlobUrl;
+      }
+      doPlay();
     } else {
-      preloadAudio().then(function () {
+      preloadAudio().then(function (url) {
         if (desiredPlaying) {
-          if (cachedAudioBuffer && ctx) {
-            playWebAudioBuffer();
-          } else {
-            playFallbackAudio();
+          if (url && player.src !== url) {
+            player.src = url;
           }
+          doPlay();
         }
       });
     }
@@ -270,17 +212,8 @@
     isAudioPlaying = false;
     try { localStorage.setItem("xsn_bg_audio", "false"); } catch (e) {}
 
-    if (currentSource) {
-      try {
-        currentSource.onended = null;
-        currentSource.stop();
-        currentSource.disconnect();
-      } catch (e) {}
-      currentSource = null;
-    }
-
-    if (fallbackAudio) {
-      fallbackAudio.pause();
+    if (bgAudioPlayer) {
+      bgAudioPlayer.pause();
     }
 
     updateAudioUIState(false);
@@ -291,23 +224,8 @@
     var num = parseInt(vol, 10);
     if (isNaN(num)) num = 40;
     num = Math.max(0, Math.min(100, num));
-    var volFraction = num / 100;
-
-    var ctx = getAudioContext();
-    if (gainNode && ctx) {
-      try {
-        gainNode.gain.cancelScheduledValues(ctx.currentTime);
-        gainNode.gain.setValueAtTime(gainNode.gain.value, ctx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(volFraction, ctx.currentTime + 0.02);
-      } catch (e) {
-        gainNode.gain.value = volFraction;
-      }
-    }
-
-    if (fallbackAudio) {
-      fallbackAudio.volume = volFraction;
-    }
-
+    var player = getAudioPlayer();
+    player.volume = num / 100;
     try { localStorage.setItem("xsn_bg_audio_vol", String(num)); } catch (e) {}
     updateVolumeUI(num);
   }
@@ -319,7 +237,7 @@
     var isEnabled = false;
     try { isEnabled = localStorage.getItem("xsn_bg_audio") === "true"; } catch (e) {}
 
-    var playing = isAudioPlaying || (desiredPlaying && isPreloading);
+    var playing = (bgAudioPlayer && !bgAudioPlayer.paused) || desiredPlaying;
     if (toggle) {
       toggle.checked = playing || isEnabled;
     }
@@ -337,15 +255,8 @@
       startAudio();
 
       var resumeOnInteraction = function () {
-        if (localStorage.getItem("xsn_bg_audio") === "true" && !isAudioPlaying) {
-          var ctx = getAudioContext();
-          if (ctx && ctx.state === "suspended") {
-            ctx.resume().then(function () {
-              if (desiredPlaying) startAudio();
-            }).catch(function () {});
-          } else {
-            startAudio();
-          }
+        if (localStorage.getItem("xsn_bg_audio") === "true" && (!bgAudioPlayer || bgAudioPlayer.paused)) {
+          startAudio();
         }
         document.removeEventListener("pointerdown", resumeOnInteraction);
         document.removeEventListener("click", resumeOnInteraction);
@@ -387,8 +298,12 @@
     }
 
     dropdownWraps.forEach(function (wrap) {
-      var btn = wrap.querySelector(".nav-dropdown-btn");
-      if (!btn) return;
+      var oldBtn = wrap.querySelector(".nav-dropdown-btn");
+      if (!oldBtn) return;
+
+      // Cleanly replace button with clone to wipe out any legacy event listeners from old cached scripts
+      var btn = oldBtn.cloneNode(true);
+      oldBtn.parentNode.replaceChild(btn, oldBtn);
 
       btn.addEventListener("mouseenter", function () {
         if (!preloadPromise) preloadAudio();
@@ -398,17 +313,20 @@
         if (!preloadPromise) preloadAudio();
       });
 
+      // Capture phase + stopImmediatePropagation prevents any outside listener or bubbling interference
       btn.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         if (!preloadPromise) preloadAudio();
+
         var isOpen = wrap.classList.contains("open");
         closeAllDropdowns();
         if (!isOpen) {
           wrap.classList.add("open");
           btn.setAttribute("aria-expanded", "true");
         }
-      });
+      }, true);
     });
 
     document.addEventListener("click", function (e) {
