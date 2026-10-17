@@ -35,6 +35,7 @@
 
   var host = document.querySelector('.contact-page');
   if (!host) return;
+  if (host.querySelector('#contact-flow-canvas')) return;
 
   var canvas = document.createElement('canvas');
   canvas.id = 'contact-flow-canvas';
@@ -276,5 +277,7 @@
     canvas: function () { return canvas; }
   };
   }
+
+  window.__initContactFlow = boot;
 
 })();

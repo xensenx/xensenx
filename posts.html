@@ -25,7 +25,7 @@
   <!-- Preload fonts for speed -->
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="src/css/style.css?v=2.9" />
+  <link rel="stylesheet" href="src/css/style.css?v=3.0" />
 </head>
 <body>
 
@@ -178,49 +178,55 @@
 
   <script src="src/js/particles.js"></script>
   <script src="src/js/ambient.js"></script>
-  <script src="src/js/nav.js?v=3.1"></script>
-  <script src="src/js/nav-dropdown.js?v=3.1"></script>
+  <script src="src/js/nav.js?v=3.2"></script>
+  <script src="src/js/nav-dropdown.js?v=3.4"></script>
   <script>
     document.querySelectorAll('.foot-yr').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
     // -- Search + Filter ------------------------------------------
-    var cards      = Array.from(document.querySelectorAll('#posts-grid .card'));
-    var searchInput= document.getElementById('posts-search');
-    var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
-    var emptyMsg   = document.getElementById('posts-empty');
-    var activeFilter = 'all';
+    function initPostsFilter() {
+      var cards      = Array.from(document.querySelectorAll('#posts-grid .card'));
+      var searchInput= document.getElementById('posts-search');
+      var filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+      var emptyMsg   = document.getElementById('posts-empty');
+      if (!cards.length || !searchInput || !filterBtns.length) return;
+      var activeFilter = 'all';
 
-    function applyFilters() {
-      var query = searchInput.value.trim().toLowerCase();
-      var visible = 0;
+      function applyFilters() {
+        var query = searchInput.value.trim().toLowerCase();
+        var visible = 0;
 
-      cards.forEach(function(card) {
-        var title    = card.dataset.title.toLowerCase();
-        var desc     = (card.dataset.desc || '').toLowerCase();
-        var category = card.dataset.category;
-        var matchSearch = !query || title.includes(query) || desc.includes(query);
-        var matchFilter = activeFilter === 'all' || category === activeFilter;
-        if (matchSearch && matchFilter) {
-          card.style.display = '';
-          visible++;
-        } else {
-          card.style.display = 'none';
-        }
+        cards.forEach(function(card) {
+          var title    = (card.dataset.title || '').toLowerCase();
+          var desc     = (card.dataset.desc || '').toLowerCase();
+          var category = card.dataset.category;
+          var matchSearch = !query || title.includes(query) || desc.includes(query);
+          var matchFilter = activeFilter === 'all' || category === activeFilter;
+          if (matchSearch && matchFilter) {
+            card.style.display = '';
+            visible++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (emptyMsg) emptyMsg.style.display = visible === 0 ? 'block' : 'none';
+      }
+
+      searchInput.oninput = applyFilters;
+
+      filterBtns.forEach(function(btn) {
+        btn.onclick = function() {
+          filterBtns.forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          activeFilter = btn.dataset.filter;
+          applyFilters();
+        };
       });
-
-      emptyMsg.style.display = visible === 0 ? 'block' : 'none';
     }
 
-    searchInput.addEventListener('input', applyFilters);
-
-    filterBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        filterBtns.forEach(function(b){ b.classList.remove('active'); });
-        btn.classList.add('active');
-        activeFilter = btn.dataset.filter;
-        applyFilters();
-      });
-    });
+    window.__initPostsFilter = initPostsFilter;
+    initPostsFilter();
   </script>
   <script src="src/js/dict.js"></script>
 </body>

@@ -24,7 +24,7 @@
   <link rel="apple-touch-icon" href="assets/site_icons/Site_icon.png">
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="src/css/style.css?v=2.9">
+  <link rel="stylesheet" href="src/css/style.css?v=3.0">
   <style>
 /* -------------------------------------------------------------
    CONTACT PAGE
@@ -931,7 +931,7 @@
   </footer>
 
   <script>
-  (() => {
+  function initContactPage() {
     'use strict';
 
     document.querySelectorAll('.foot-yr').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
@@ -1128,13 +1128,15 @@
         nameInput.focus();
       }, 300);
     });
-  })();
+  }
+  window.__initContactPage = initContactPage;
+  initContactPage();
   </script>
   <script src="src/js/particles.js"></script>
   <script src="src/js/contact-flow.js"></script>
   <script src="src/js/ambient.js"></script>
-  <script src="src/js/nav.js?v=3.1"></script>
-  <script src="src/js/nav-dropdown.js?v=3.1"></script>
+  <script src="src/js/nav.js?v=3.2"></script>
+  <script src="src/js/nav-dropdown.js?v=3.4"></script>
   <script src="src/js/dict.js"></script>
 </body>
 </html>

@@ -24,7 +24,7 @@
     return;
   }
 
-  const sections = [...document.querySelectorAll(".sticky-section")];
+  let sections = [...document.querySelectorAll(".sticky-section")];
 
   function update() {
     const vh = window.innerHeight;
@@ -99,5 +99,10 @@
 
   // Initial state
   update();
+
+  window.__initScrollEffects = function () {
+    sections = [...document.querySelectorAll(".sticky-section")];
+    update();
+  };
 
 })();

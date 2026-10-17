@@ -32,7 +32,7 @@
   <!-- Preload fonts for speed -->
   <link rel="preload" href="assets/fonts/Berylium%20Rg.otf" as="font" type="font/otf" crossorigin>
   <link rel="preload" href="assets/fonts/LiberationSerif-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="src/css/style.css?v=2.9" />
+  <link rel="stylesheet" href="src/css/style.css?v=3.0" />
 </head>
 <body>
 
@@ -214,77 +214,94 @@
     </div>
   </footer>
   <script>document.querySelectorAll('.foot-yr').forEach(function(el){el.textContent=new Date().getFullYear();});</script>
-<script src="src/js/nav.js?v=3.1"></script>
-<script src="src/js/nav-dropdown.js?v=3.1"></script>
+<script src="src/js/nav.js?v=3.2"></script>
+  <script src="src/js/nav-dropdown.js?v=3.4"></script>
   <script src="src/js/dict.js"></script>
       <script>
-    (function () {
-      var tabs = document.querySelectorAll('.work-tab');
-      var panels = document.querySelectorAll('.work-tab-panel');
-      var indicator = document.querySelector('.work-tab-indicator');
+      function initWorkTabs() {
+        var tabs = document.querySelectorAll('.work-tab');
+        var panels = document.querySelectorAll('.work-tab-panel');
+        var indicator = document.querySelector('.work-tab-indicator');
+        if (!tabs.length || !indicator) return;
 
-      function updateIndicator(targetTab) {
-        if (!targetTab) return;
-        indicator.style.transform = 'translateX(' + targetTab.offsetLeft + 'px)';
-        indicator.style.width = targetTab.offsetWidth + 'px';
-      }
+        function updateIndicator(targetTab) {
+          if (!targetTab) return;
+          indicator.style.transform = 'translateX(' + targetTab.offsetLeft + 'px)';
+          indicator.style.width = targetTab.offsetWidth + 'px';
+        }
 
-      function activateTab(tabId) {
-        tabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-        panels.forEach(function (p) { p.classList.add('hidden'); });
-        
-        var targetTab = document.querySelector('.work-tab[data-tab="' + tabId + '"]');
-        if (!targetTab) return;
-        
-        targetTab.classList.add('active');
-        targetTab.setAttribute('aria-selected', 'true');
-        
-        var targetPanel = document.getElementById('tab-' + tabId);
-        if (targetPanel) targetPanel.classList.remove('hidden');
+        function activateTab(tabId) {
+          tabs.forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+          panels.forEach(function (p) { p.classList.add('hidden'); });
+          
+          var targetTab = document.querySelector('.work-tab[data-tab="' + tabId + '"]');
+          if (!targetTab) return;
+          
+          targetTab.classList.add('active');
+          targetTab.setAttribute('aria-selected', 'true');
+          
+          var targetPanel = document.getElementById('tab-' + tabId);
+          if (targetPanel) targetPanel.classList.remove('hidden');
 
-        updateIndicator(targetTab);
-        
+          updateIndicator(targetTab);
+          
+          try {
+            sessionStorage.setItem('xsn_active_work_tab', tabId);
+          } catch (e) {}
+        }
+
+        tabs.forEach(function (tab) {
+          tab.onclick = function () {
+            activateTab(this.dataset.tab);
+          };
+        });
+
+        // Restore active tab on load
+        var activeId = 'projects';
         try {
-          sessionStorage.setItem('xsn_active_work_tab', tabId);
+          var savedTab = sessionStorage.getItem('xsn_active_work_tab');
+          if (savedTab) activeId = savedTab;
         } catch (e) {}
+        
+        // Delay initial calculation slightly to ensure layout is ready
+        setTimeout(function() {
+          activateTab(activeId);
+        }, 10);
+
+        window.addEventListener('resize', function() {
+          var activeTab = document.querySelector('.work-tab.active');
+          if (activeTab) updateIndicator(activeTab);
+        });
+
+        // Keyboard & click nav for research cards
+        document.querySelectorAll('.research-card').forEach(function (card) {
+          card.onkeydown = function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              var href = card.dataset.href;
+              if (href) {
+                if (typeof window.__navigateTo === 'function') {
+                  window.__navigateTo(href, true);
+                } else {
+                  window.location.href = href;
+                }
+              }
+            }
+          };
+          card.onclick = function (e) {
+            var href = card.dataset.href;
+            if (href) {
+              if (typeof window.__navigateTo === 'function') {
+                window.__navigateTo(href, true);
+              } else {
+                window.location.href = href;
+              }
+            }
+          };
+        });
       }
 
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          activateTab(tab.dataset.tab);
-        });
-      });
-
-      // Restore active tab on load
-      var activeId = 'projects';
-      try {
-        var savedTab = sessionStorage.getItem('xsn_active_work_tab');
-        if (savedTab) activeId = savedTab;
-      } catch (e) {}
-      
-      // Delay initial calculation slightly to ensure layout is ready
-      setTimeout(function() {
-        activateTab(activeId);
-      }, 0);
-
-      window.addEventListener('resize', function() {
-        var activeTab = document.querySelector('.work-tab.active');
-        if (activeTab) updateIndicator(activeTab);
-      });
-
-      // Keyboard nav for research cards
-      document.querySelectorAll('.research-card').forEach(function (card) {
-        card.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            var href = card.dataset.href;
-            if (href) window.location.href = href;
-          }
-        });
-        card.addEventListener('click', function (e) {
-            var href = card.dataset.href;
-            if (href) window.location.href = href;
-        });
-      });
+      window.__initWorkTabs = initWorkTabs;
+      initWorkTabs();
     })();
   </script>
 </body>

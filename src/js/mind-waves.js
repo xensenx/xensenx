@@ -674,4 +674,19 @@
     start();
   }
 
+  window.__initMindWaves = function () {
+    const canvasEl = document.getElementById("mind-art-canvas");
+    if (!canvasEl) return;
+    const wrapEl = document.querySelector(".mind-art-wrap");
+    if (wrapEl) wrap = wrapEl;
+    canvas = canvasEl;
+    resize();
+    isIntersecting = true;
+    start();
+  };
+
+  window.__stopMindWaves = function () {
+    stop();
+  };
+
 })();
