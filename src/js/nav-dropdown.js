@@ -557,6 +557,35 @@
 
   var pageCache = {};
   var pageRequests = {};
+  var contactFlowLoading = false;
+
+  document.head.querySelectorAll("style").forEach(function (style) {
+    style.setAttribute("data-spa-page-style", "true");
+  });
+
+  function syncPageHead(newDoc) {
+    document.head.querySelectorAll("style[data-spa-page-style]").forEach(function (style) {
+      style.remove();
+    });
+    newDoc.head.querySelectorAll("style").forEach(function (style) {
+      var clone = document.createElement("style");
+      clone.setAttribute("data-spa-page-style", "true");
+      clone.textContent = style.textContent;
+      document.head.appendChild(clone);
+    });
+  }
+
+  function runPageInlineScripts(newDoc) {
+    newDoc.body.querySelectorAll("script:not([src])").forEach(function (script) {
+      var code = script.textContent || "";
+      if (!code.trim()) return;
+      try {
+        window.eval(code);
+      } catch (err) {
+        console.warn("[spa-nav] Page initializer failed:", err);
+      }
+    });
+  }
 
   function fetchPage(url) {
     var cleanUrl = url.split("#")[0];
@@ -673,29 +702,22 @@
     // Sync settings modal controls
     syncSettingsControls();
 
-    // Page-specific initializers
-    if (document.querySelector(".work-tab")) {
-      if (typeof window.__initWorkTabs === "function") {
-        window.__initWorkTabs();
-      }
-    }
-
-    if (document.getElementById("posts-search")) {
-      if (typeof window.__initPostsFilter === "function") {
-        window.__initPostsFilter();
-      }
-    }
-
-    if (document.getElementById("contact-form")) {
-      if (typeof window.__initContactPage === "function") {
-        window.__initContactPage();
-      }
-    }
-
     if (document.querySelector(".contact-page")) {
       if (typeof window.__initContactFlow === "function") {
         window.__initContactFlow();
+      } else if (!contactFlowLoading) {
+        contactFlowLoading = true;
+        var flowScript = document.createElement("script");
+        flowScript.src = new URL("src/js/contact-flow.js", window.location.href).href;
+        flowScript.onload = function () {
+          contactFlowLoading = false;
+          if (typeof window.__initContactFlow === "function") window.__initContactFlow();
+        };
+        flowScript.onerror = function () { contactFlowLoading = false; };
+        document.body.appendChild(flowScript);
       }
+    } else if (typeof window.__stopContactFlow === "function") {
+      window.__stopContactFlow();
     }
 
     if (document.getElementById("mind-art-canvas")) {
@@ -732,7 +754,9 @@
       document.title = newDoc.title;
       document.body.className = newDoc.body.className;
 
+      syncPageHead(newDoc);
       swapPageContent(newDoc);
+      runPageInlineScripts(newDoc);
 
       if (hash) {
         var targetEl = document.querySelector(hash);

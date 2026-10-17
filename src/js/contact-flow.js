@@ -51,6 +51,8 @@
   var ctx = canvas.getContext('2d');
   var W = 0, H = 0;
   var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var running = true;
+  var frameId = 0;
 
   function resize() {
     var r = host.getBoundingClientRect();
@@ -75,10 +77,11 @@
     B.x = W * 0.85; B.y = H * 0.62;
   }
   placeNodes();
-  window.addEventListener('resize', function () {
+  var resizeHandler = function () {
     resize();
     placeNodes();
-  });
+  };
+  window.addEventListener('resize', resizeHandler);
 
   /* ── Helpers ─────────────────────────────────────────────────── */
   function n1(t) { return 0.5 + 0.5 * Math.sin(t); }   /* 0..1, smooth */
@@ -165,6 +168,7 @@
   var last = performance.now();
 
   function loop(now) {
+    if (!running) return;
     var dt = Math.min(now - last, 50);
     last = now;
     ctx.clearRect(0, 0, W, H);
@@ -251,13 +255,13 @@
     drawNode(pa, A.r, now);
     drawNode(pb, B.r, now);
 
-    requestAnimationFrame(loop);
+    frameId = requestAnimationFrame(loop);
   }
 
   /* ── Start when the tab is visible ───────────────────────────── */
   function start() {
     last = performance.now();
-    requestAnimationFrame(loop);
+    frameId = requestAnimationFrame(loop);
   }
   if (document.visibilityState === 'visible') {
     start();
@@ -275,6 +279,12 @@
     placeNodes: placeNodes,
     nodes: [A, B],
     canvas: function () { return canvas; }
+  };
+  window.__stopContactFlow = function () {
+    running = false;
+    if (frameId) cancelAnimationFrame(frameId);
+    window.removeEventListener('resize', resizeHandler);
+    canvas.remove();
   };
   }
 
