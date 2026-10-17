@@ -47,7 +47,7 @@
     wrap.appendChild(canvas);
   }
 
-  const ctx = canvas.getContext("2d");
+  let ctx = canvas.getContext("2d");
   if (!ctx) return;
 
   // ── Sizing & High DPI ───────────────────────────────────────
@@ -689,6 +689,8 @@
     const wrapEl = document.querySelector(".mind-art-wrap");
     if (wrapEl) wrap = wrapEl;
     canvas = canvasEl;
+    ctx = canvas.getContext("2d");
+    if (!ctx) return;
     observeMainPage();
     resize();
     isIntersecting = true;
