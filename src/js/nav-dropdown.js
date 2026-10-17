@@ -7,6 +7,25 @@
 (function () {
   "use strict";
 
+  // Cursor preference is shared by every page, including SPA-swapped content.
+  function isCustomCursorEnabled() {
+    try {
+      var stored = localStorage.getItem("xsn_custom_cursor");
+      return stored === null || stored === "true";
+    } catch (e) {
+      return true;
+    }
+  }
+
+  function applyCursorPreference(enabled) {
+    var root = document.documentElement;
+    if (root) {
+      root.classList.toggle("cursor-normal", !enabled);
+    }
+  }
+
+  applyCursorPreference(isCustomCursorEnabled());
+
   // ── High-Performance Zero-Latency Background Audio Controller ──────
   // 1. Instant progressive streaming via HTML5 <audio> (0ms decode lag, starts in < 15ms).
   // 2. Native volume control keeps startup lightweight and works without Web Audio.
@@ -258,6 +277,11 @@
     var vol = getStoredVolume();
     updateVolumeUI(vol);
     updateAudioUIState(playing || isEnabled);
+
+    var cursorToggle = context.querySelector("#setting-cursor-toggle");
+    if (cursorToggle) {
+      cursorToggle.checked = isCustomCursorEnabled();
+    }
   }
 
   // Pre-fetch & auto-resume background audio if user previously enabled it.
@@ -388,7 +412,7 @@
                   '</label>' +
                 '</div>' +
               '</div>' +
-              '<div class="settings-row settings-volume-row">' +
+                '<div class="settings-row settings-volume-row">' +
                 '<div class="settings-row-info">' +
                   '<div class="settings-row-title">Music Volume</div>' +
                   '<div class="settings-row-desc">Adjust background playback level</div>' +
@@ -399,9 +423,21 @@
                   '</span>' +
                   '<input type="range" id="setting-audio-volume" min="0" max="100" value="40" class="settings-range-slider" aria-label="Music volume" />' +
                   '<span class="settings-volume-value" id="settings-volume-value">40%</span>' +
+                  '</div>' +
                 '</div>' +
-              '</div>' +
-              '<div class="settings-audio-credit">' +
+                '<div class="settings-row">' +
+                  '<div class="settings-row-info">' +
+                    '<div class="settings-row-title">Custom Cat Cursor</div>' +
+                    '<div class="settings-row-desc">Use the cat and paw cursors throughout the site</div>' +
+                  '</div>' +
+                  '<div class="settings-row-control">' +
+                    '<label class="settings-switch" for="setting-cursor-toggle">' +
+                      '<input type="checkbox" id="setting-cursor-toggle" aria-label="Toggle custom cat cursor" />' +
+                      '<span class="settings-slider"></span>' +
+                    '</label>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="settings-audio-credit">' +
                 '<div class="settings-credit-info">' +
                   '<div class="settings-credit-header">' +
                     '<span class="settings-credit-pulse" id="audio-status-dot" aria-hidden="true"></span>' +
@@ -493,6 +529,15 @@
       } else {
         stopAudio();
       }
+    }
+
+    if (e.target && e.target.id === "setting-cursor-toggle") {
+      var enabled = e.target.checked;
+      try { localStorage.setItem("xsn_custom_cursor", enabled ? "true" : "false"); } catch (storageErr) {}
+      applyCursorPreference(enabled);
+      document.querySelectorAll("#setting-cursor-toggle").forEach(function (toggle) {
+        toggle.checked = enabled;
+      });
     }
   });
 

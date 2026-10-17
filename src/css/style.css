@@ -719,6 +719,12 @@ textarea, [contenteditable] {
   cursor: text;
 }
 
+/* Restore the browser's native cursor when the custom cursor preference is off. */
+html.cursor-normal,
+html.cursor-normal * {
+  cursor: revert !important;
+}
+
 /* -------------------------------------------------------------
    CONTACT PAGE
    ------------------------------------------------------------- */
