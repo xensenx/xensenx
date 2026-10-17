@@ -643,9 +643,14 @@
   });
 
   // IntersectionObserver: pauses animation when main-page is not in view
-  const mainPage = document.getElementById("main-page");
-  if ("IntersectionObserver" in window && mainPage) {
-    const observer = new IntersectionObserver(function (entries) {
+  let mainPage = document.getElementById("main-page");
+  let mainObserver = null;
+
+  function observeMainPage() {
+    if (mainObserver) mainObserver.disconnect();
+    mainPage = document.getElementById("main-page");
+    if ("IntersectionObserver" in window && mainPage) {
+      mainObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         isIntersecting = entry.isIntersecting;
         if (isIntersecting) {
@@ -654,11 +659,15 @@
           stop();
         }
       });
-    }, { threshold: 0.01 });
-    observer.observe(mainPage);
-  } else {
-    start();
+      }, { threshold: 0.01 });
+      mainObserver.observe(mainPage);
+    } else {
+      isIntersecting = true;
+      start();
+    }
   }
+
+  observeMainPage();
 
   // Sync initial start with flash screen reveal if present
   if (mainPage && !mainPage.classList.contains("visible")) {
@@ -680,6 +689,7 @@
     const wrapEl = document.querySelector(".mind-art-wrap");
     if (wrapEl) wrap = wrapEl;
     canvas = canvasEl;
+    observeMainPage();
     resize();
     isIntersecting = true;
     start();

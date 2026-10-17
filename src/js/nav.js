@@ -152,6 +152,19 @@
           backLink.setAttribute("href", isClean ? "/work" : "../work.html");
         } else {
           backLink.setAttribute("href", isClean ? "/" : "index.html");
+          backLink.onclick = function (e) {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+            var navigationSource = (window.history.state && window.history.state.from) || document.referrer;
+            if (window.history.length > 1 && navigationSource) {
+              try {
+                var ref = new URL(navigationSource, window.location.href);
+                if (ref.origin === window.location.origin) {
+                  e.preventDefault();
+                  window.history.back();
+                }
+              } catch (clickErr) {}
+            }
+          };
         }
       }
     } catch (err) { /* Keep static HTML default */ }
