@@ -739,16 +739,32 @@
     updateActiveNavLinks(targetUrl);
   }
 
-  function navigateTo(url, push) {
+  function rememberCurrentScroll() {
+    try {
+      var currentState = Object.assign({}, window.history.state || {}, {
+        url: window.location.href,
+        scrollY: Math.round(window.scrollY || 0)
+      });
+      window.history.replaceState(currentState, "", window.location.href);
+    } catch (e) {}
+  }
+
+  function navigateTo(url, push, historyState) {
     var cleanUrl = url.split("#")[0];
     var hash = url.indexOf("#") !== -1 ? url.substring(url.indexOf("#")) : "";
+
+    if (push) rememberCurrentScroll();
 
     function applyNewPage(html) {
       var parser = new DOMParser();
       var newDoc = parser.parseFromString(html, "text/html");
 
       if (push) {
-        window.history.pushState({ url: url }, "", url);
+        window.history.pushState({
+          url: url,
+          scrollY: 0,
+          from: window.location.href
+        }, "", url);
       }
 
       document.title = newDoc.title;
@@ -766,7 +782,10 @@
           window.scrollTo(0, 0);
         }
       } else {
-        window.scrollTo(0, 0);
+        var restoreY = (!push && historyState && Number.isFinite(historyState.scrollY))
+          ? Math.max(0, historyState.scrollY)
+          : 0;
+        window.scrollTo(0, restoreY);
       }
 
       runPageInitializers(url);
@@ -849,8 +868,8 @@
   });
 
   // Browser back / forward buttons
-  window.addEventListener("popstate", function () {
-    navigateTo(window.location.href, false);
+  window.addEventListener("popstate", function (event) {
+    navigateTo(window.location.href, false, event.state);
   });
 
 

@@ -77,9 +77,21 @@
           // Detect whether this post was opened from the mind section (e.g. featured posts)
           var search = window.location.search || "";
           var isFromMind = /[?&]from=mind(?:&|$)/.test(search);
+          var sourceKnown = isFromMind;
+
+          // SPA navigation records the actual source because document.referrer
+          // remains the original document after pushState.
+          if (!sourceKnown && window.history.state && window.history.state.from) {
+            try {
+              var stateSource = new URL(window.history.state.from, window.location.href);
+              var statePath = stateSource.pathname.replace(/\\/g, "/");
+              isFromMind = statePath === "" || statePath === "/" || statePath.slice(-11) === "/index.html" || statePath === "index.html";
+              sourceKnown = true;
+            } catch (stateErr) {}
+          }
 
           // Fallback: inspect document.referrer if opened within same origin
-          if (!isFromMind && document.referrer) {
+          if (!sourceKnown && document.referrer) {
             try {
               var refUrl = new URL(document.referrer);
               if (refUrl.origin === window.location.origin) {
@@ -90,11 +102,13 @@
                   && refPath.indexOf("/contact") === -1;
                 if (isMindRef) {
                   isFromMind = true;
+                  sourceKnown = true;
                 }
               }
             } catch (refErr) {
               if (document.referrer.indexOf("index.html") !== -1 && document.referrer.indexOf("posts") === -1) {
                 isFromMind = true;
+                sourceKnown = true;
               }
             }
           }
@@ -114,9 +128,10 @@
               return;
             }
 
-            if (window.history.length > 1 && document.referrer) {
+            var navigationSource = (window.history.state && window.history.state.from) || document.referrer;
+            if (window.history.length > 1 && navigationSource) {
               try {
-                var ref = new URL(document.referrer);
+                var ref = new URL(navigationSource, window.location.href);
                 if (ref.origin === window.location.origin) {
                   var p = ref.pathname.replace(/\\/g, "/");
                   var cameFromMind = (p === "" || p === "/" || p.slice(-11) === "/index.html" || p === "index.html")

@@ -52,6 +52,7 @@
   const mouse     = { x: -9999, y: -9999 };
   let   lastSpawn = 0;
   let   active    = false;   // stays false until main page is live
+  let   rendering = false;
 
   // ── Particle ─────────────────────────────────────────────────
   function Particle(ox, oy) {
@@ -131,11 +132,20 @@
     for (let i = 0; i < n; i++) {
       pool.push(new Particle(e.clientX, e.clientY));
     }
+    if (n && !rendering) {
+      rendering = true;
+      requestAnimationFrame(tick);
+    }
   }, { passive: true });
 
   // ── Render loop ──────────────────────────────────────────────
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (!pool.length) {
+      rendering = false;
+      return;
+    }
 
     for (let i = pool.length - 1; i >= 0; i--) {
       pool[i].update();
@@ -143,9 +153,12 @@
       if (pool[i].isDead()) pool.splice(i, 1);
     }
 
-    requestAnimationFrame(tick);
+    if (pool.length) {
+      requestAnimationFrame(tick);
+    } else {
+      rendering = false;
+    }
   }
-  tick();
 
   // ── Gate: activate only once the flash screen is gone ────────
   // Uses MutationObserver so there's no coupling to main.js timings.

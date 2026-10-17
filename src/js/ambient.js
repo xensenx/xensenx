@@ -136,6 +136,10 @@
   /* ── Render loop ─────────────────────────────────────────────── */
   var last = performance.now();
 
+  function scheduleFrame() {
+    window.setTimeout(function () { frame(performance.now()); }, document.hidden ? 1000 : 33);
+  }
+
   function frame(now) {
     var dt = Math.min(now - last, 50);
     last = now;
@@ -192,9 +196,9 @@
       ctx.fill();
     }
 
-    requestAnimationFrame(frame);
+    scheduleFrame();
   }
-  requestAnimationFrame(frame);
+  scheduleFrame();
 
   /* Test hook — lets automated checks summon a mote without waiting. */
   window.__xsnAmbientTest = {
