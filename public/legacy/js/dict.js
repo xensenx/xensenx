@@ -7,19 +7,8 @@
 (function () {
   'use strict';
 
-  /* ── Path resolution ─────────────────────────────────────────
-     Use currentScript.src (always available for non-deferred scripts)
-     to compute the absolute URL of assets/dict/, regardless of page depth. */
-  var scriptSrc = document.currentScript && document.currentScript.src;
-  var DICT_BASE;
-  if (scriptSrc) {
-    // e.g. "http://localhost:5500/src/js/dict.js"  →  "http://localhost:5500/assets/dict/"
-    DICT_BASE = scriptSrc.replace(/src\/js\/dict\.js(\?.*)?$/, '') + 'assets/dict/';
-  } else {
-    // Fallback: derive from current page URL (strips filename, goes to root)
-    var origin = window.location.origin !== 'null' ? window.location.origin : '';
-    DICT_BASE = origin + '/assets/dict/';
-  }
+  /* Dictionary data is served from the site's root asset directory. */
+  var DICT_BASE = new URL('/assets/dict/', window.location.origin).href;
 
   /* ── Cache: letter → word map ────────────────────────────────── */
   var cache = {};

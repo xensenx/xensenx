@@ -1,14 +1,17 @@
 /**
  * build-dict.js
- * Splits assets/English_dictionary/filtered.json into per-letter chunks
- * under assets/dict/. Run once: node scripts/build-dict.js
+ * Splits public/assets/English_dictionary/filtered.json into per-letter chunks
+ * under public/assets/dict/. Run once: node scripts/build-dict.js
  */
 
-const fs   = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const SRC  = path.join(__dirname, '..', 'assets', 'English_dictionary', 'filtered.json');
-const DEST = path.join(__dirname, '..', 'assets', 'dict');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SRC  = path.join(__dirname, '..', 'public', 'assets', 'English_dictionary', 'filtered.json');
+const DEST = path.join(__dirname, '..', 'public', 'assets', 'dict');
 
 fs.mkdirSync(DEST, { recursive: true });
 
@@ -42,4 +45,4 @@ for (const [key, data] of Object.entries(buckets)) {
   console.log(`  ${key}.json  — ${Object.keys(data).length} words, ${kb} KB`);
 }
 
-console.log('\nDone. All letter files written to assets/dict/');
+console.log('\nDone. All letter files written to public/assets/dict/');

@@ -1,0 +1,21 @@
+{
+  "name": "xensenx-qwik-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build.client": "vite build",
+    "build.server": "vite build -c adapters/static/vite.config.ts",
+    "build": "npm run build.client && npm run build.server",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@builder.io/qwik": "^1.20.4",
+    "@builder.io/qwik-city": "^1.20.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "typescript": "^5.8.3",
+    "vite": "^6.4.6"
+  }
+}
