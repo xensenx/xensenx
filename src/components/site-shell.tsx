@@ -1,6 +1,23 @@
 import { component$, $, useSignal, useVisibleTask$, type Signal } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { getPage } from '../content/pages';
+
+function getClientPageHref(href: string, baseUrl: URL): string | undefined {
+  try {
+    const target = new URL(href, baseUrl);
+    if (target.origin !== baseUrl.origin) return undefined;
+
+    let pathname = target.pathname;
+    if (pathname === '/index.html') pathname = '/';
+    else if (pathname.endsWith('.html')) pathname = `/${pathname.slice(1, -5).replace(/\/+$/, '')}/`;
+    else if (pathname !== '/' && !pathname.endsWith('/') && !/\.[^/]+$/.test(pathname)) pathname += '/';
+
+    if (/\.[^/]+$/.test(pathname)) return undefined;
+    return `${pathname}${target.search}${target.hash}`;
+  } catch {
+    return undefined;
+  }
+}
 
 function setDialog(id: string, open: boolean) {
   const dialog = document.getElementById(id);
@@ -53,6 +70,7 @@ function activateWorkTab(root: HTMLElement, tabId: string) {
 
 export const SiteHeader = component$((props: { active: string; settingsOpen: Signal<boolean> }) => {
   const menuOpen = useSignal(false);
+  const navigate = useNavigate();
 
   useVisibleTask$(({ cleanup }) => {
     const header = document.querySelector<HTMLElement>('header');
@@ -110,19 +128,19 @@ export const SiteHeader = component$((props: { active: string; settingsOpen: Sig
             >
               <span>settings</span>
             </button>
-            <a href="/about-site.html" class="nav-dropdown-item" role="menuitem"><span>about site</span></a>
-            <a href="/privacy.html" class="nav-dropdown-item" role="menuitem"><span>privacy-policy</span></a>
-            <a href="/contact.html" class="nav-dropdown-item" role="menuitem"><span>contact</span></a>
+            <Link href="/about-site/" class="nav-dropdown-item" role="menuitem"><span>about site</span></Link>
+            <Link href="/privacy/" class="nav-dropdown-item" role="menuitem"><span>privacy-policy</span></Link>
+            <Link href="/contact/" class="nav-dropdown-item" role="menuitem"><span>contact</span></Link>
             <div class="nav-dropdown-divider"></div>
             <button
               type="button"
               class="nav-dropdown-item"
               id="nav-refresh-flash"
               role="menuitem"
-              onClick$={() => {
+              onClick$={async () => {
                 menuOpen.value = false;
                 try { sessionStorage.removeItem('xsn_flash_done'); } catch { /* Storage is optional. */ }
-                if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') window.location.assign('/index.html');
+                if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') await navigate('/');
                 else window.location.reload();
               }}
             >
@@ -131,10 +149,10 @@ export const SiteHeader = component$((props: { active: string; settingsOpen: Sig
           </div>
         </div>
         <div class="nav-links">
-          <a href="/index.html" aria-current={props.active === 'mind' ? 'page' : undefined}>mind</a>
-          <a href="/posts.html" aria-current={props.active === 'posts' ? 'page' : undefined}>posts</a>
-          <a href="/work.html" aria-current={props.active === 'work' ? 'page' : undefined}>work</a>
-          <a href="/contact.html" aria-current={props.active === 'contact' ? 'page' : undefined}>contact</a>
+          <Link href="/" aria-current={props.active === 'mind' ? 'page' : undefined}>mind</Link>
+          <Link href="/posts/" aria-current={props.active === 'posts' ? 'page' : undefined}>posts</Link>
+          <Link href="/work/" aria-current={props.active === 'work' ? 'page' : undefined}>work</Link>
+          <Link href="/contact/" aria-current={props.active === 'contact' ? 'page' : undefined}>contact</Link>
         </div>
       </nav>
     </header>
@@ -143,16 +161,17 @@ export const SiteHeader = component$((props: { active: string; settingsOpen: Sig
 
 export const ArticleNav = component$((props: { pagePath: string; fromMind: boolean; settingsOpen: Signal<boolean> }) => {
   const menuOpen = useSignal(false);
-  let href = '../index.html';
+  const navigate = useNavigate();
+  let href = '/';
   let label = 'Back to mind';
   if (props.pagePath.startsWith('posts/')) {
-    href = props.fromMind ? '../index.html' : '../posts.html';
+    href = props.fromMind ? '/' : '/posts/';
     label = props.fromMind ? 'Back to mind' : 'Back to posts';
   } else if (props.pagePath.startsWith('research/')) {
-    href = '../work.html';
+    href = '/work/';
     label = 'Back to work';
   } else if (props.pagePath === 'about-me.html') {
-    href = 'index.html';
+    href = '/';
   }
 
   useVisibleTask$(({ cleanup }) => {
@@ -181,7 +200,7 @@ export const ArticleNav = component$((props: { pagePath: string; fromMind: boole
 
   return (
     <nav class="article-nav">
-      <a href={href} class="article-back" aria-label={label} data-back>&larr; back</a>
+      <Link href={href} class="article-back" aria-label={label} data-back>&larr; back</Link>
       {props.pagePath === 'about-me.html' ? (
         <span class="nav-name">xensenx</span>
       ) : (
@@ -200,18 +219,18 @@ export const ArticleNav = component$((props: { pagePath: string; fromMind: boole
           </button>
           <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Site menu">
             <button type="button" class="nav-dropdown-item" role="menuitem" onClick$={() => { menuOpen.value = false; props.settingsOpen.value = true; }}><span>settings</span></button>
-            <a href="/about-site.html" class="nav-dropdown-item" role="menuitem"><span>about site</span></a>
-            <a href="/privacy.html" class="nav-dropdown-item" role="menuitem"><span>privacy-policy</span></a>
-            <a href="/contact.html" class="nav-dropdown-item" role="menuitem"><span>contact</span></a>
+            <Link href="/about-site/" class="nav-dropdown-item" role="menuitem"><span>about site</span></Link>
+            <Link href="/privacy/" class="nav-dropdown-item" role="menuitem"><span>privacy-policy</span></Link>
+            <Link href="/contact/" class="nav-dropdown-item" role="menuitem"><span>contact</span></Link>
             <div class="nav-dropdown-divider"></div>
             <button
               type="button"
               class="nav-dropdown-item"
               role="menuitem"
-              onClick$={() => {
+              onClick$={async () => {
                 menuOpen.value = false;
                 try { sessionStorage.removeItem('xsn_flash_done'); } catch { /* Storage is optional. */ }
-                if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') window.location.assign('/index.html');
+                if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') await navigate('/');
                 else window.location.reload();
               }}
             ><span>refresh</span></button>
@@ -226,7 +245,7 @@ export const SiteFooter = component$(() => (
   <footer id="footer">
     <div class="footer-inner">
       <span class="footer-name">Sen &copy; <span class="foot-yr">{new Date().getFullYear()}</span></span>
-      <a href="/privacy.html" class="footer-legal-link">Privacy Policy</a>
+      <Link href="/privacy/" class="footer-legal-link">Privacy Policy</Link>
       <div class="footer-icons">
         <a href="https://github.com/xensenx" class="footer-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" /></svg>
@@ -234,9 +253,9 @@ export const SiteFooter = component$(() => (
         <a href="https://ko-fi.com/xensenx" class="footer-icon" target="_blank" rel="noopener noreferrer" aria-label="Ko-fi">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 2.694.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z" fill="currentColor" /></svg>
         </a>
-        <a href="/sitemap.html" class="footer-icon" aria-label="Sitemap">
+        <Link href="/sitemap/" class="footer-icon" aria-label="Sitemap">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 12H7.6C7.04 12 6.76 12 6.546 12.109C6.358 12.205 6.205 12.358 6.109 12.546C6 12.76 6 13.04 6 13.6V16M12 12H16.4C16.96 12 17.24 12 17.454 12.109C17.642 12.205 17.795 12.358 17.891 12.546C18 12.76 18 13.04 18 13.6V16M12 12V8M11.1 8H12.9C13.46 8 13.74 8 13.954 7.891C14.142 7.795 14.295 7.642 14.391 7.454C14.5 7.24 14.5 6.96 14.5 6.4V4.6C14.5 4.04 14.5 3.76 14.391 3.546C14.295 3.358 14.142 3.205 13.954 3.109C13.74 3 13.46 3 12.9 3H11.1C10.54 3 10.26 3 10.046 3.109C9.858 3.205 9.705 3.358 9.609 3.546C9.5 3.76 9.5 4.04 9.5 4.6V6.4C9.5 6.96 9.5 7.24 9.609 7.454C9.705 7.642 9.858 7.795 10.046 7.891C10.26 8 10.54 8 11.1 8ZM5.1 21H6.9C7.46 21 7.74 21 7.954 20.891C8.142 20.795 8.295 20.642 8.391 20.454C8.5 20.24 8.5 19.96 8.5 19.4V17.6C8.5 17.04 8.5 16.76 8.391 16.546C8.295 16.358 8.142 16.205 8.046 16.109C7.74 16 7.46 16 6.9 16H5.1C4.54 16 4.26 16 4.046 16.109C3.858 16.205 3.705 16 3.609 16.546V19.4C3.5 19.96 3.5 20.24 3.609 20.454C3.705 20.642 3.858 20.795 4.046 20.891C4.26 21 4.54 21 5.1 21ZM17.1 21H18.9C19.46 21 19.74 21 19.954 20.891C20.142 20.795 20.295 20.642 20.391 20.454C20.5 20.24 20.5 19.96 20.5 19.4V17.6C20.5 17.04 20.5 16.76 20.391 16.546C20.295 16.358 20.142 16.205 19.954 16.109C19.74 16 19.46 16 18.9 16H17.1C16.54 16 16.26 16 16.046 16.109C15.858 16.205 15.705 16.358 15.609 16.546C15.5 16.76 15.5 16.24 15.5 17.6V19.4C15.5 19.96 15.5 20.24 15.609 20.454C15.705 20.642 15.858 20.795 16.046 20.891C16.26 21 16.54 21 17.1 21Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
-        </a>
+        </Link>
       </div>
     </div>
   </footer>
@@ -414,6 +433,7 @@ export const PageEffects = component$((props: { home: boolean; contact: boolean;
 
 export const PageView = component$((props: { path: string }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const page = getPage(props.path);
   const settingsOpen = useSignal(false);
   const pageRoot = useSignal<HTMLElement>();
@@ -509,7 +529,7 @@ export const PageView = component$((props: { path: string }) => {
   }, { strategy: 'document-ready' });
 
   if (!page) {
-    return <main class="article-page"><h1>Page not found</h1><a href="index.html">Return to mind</a></main>;
+    return <main class="article-page"><h1>Page not found</h1><Link href="/">Return to mind</Link></main>;
   }
 
   const active = page.path === 'index.html' ? 'mind' : page.path.replace('.html', '');
@@ -560,6 +580,30 @@ export const PageView = component$((props: { path: string }) => {
           const target = event.target as HTMLElement;
           if (!root || !target) return;
 
+          const anchor = target.closest<HTMLAnchorElement>('a[href]');
+          if (
+            anchor &&
+            !event.defaultPrevented &&
+            event.button === 0 &&
+            !event.altKey &&
+            !event.ctrlKey &&
+            !event.metaKey &&
+            !event.shiftKey &&
+            !anchor.hasAttribute('download') &&
+            (!anchor.target || anchor.target === '_self')
+          ) {
+            const destination = new URL(anchor.href, location.url);
+            const nextPage = getClientPageHref(destination.href, location.url);
+            if (
+              nextPage &&
+              (destination.pathname !== location.url.pathname || destination.search !== location.url.search)
+            ) {
+              event.preventDefault();
+              await navigate(nextPage);
+              return;
+            }
+          }
+
           const filter = target.closest<HTMLButtonElement>('.filter-btn');
           if (filter) {
             postCategory.value = filter.dataset.filter || 'all';
@@ -573,7 +617,11 @@ export const PageView = component$((props: { path: string }) => {
           const researchCard = target.closest<HTMLElement>('.research-card');
           if (researchCard && !target.closest('a')) {
             const destination = researchCard.dataset.href;
-            if (destination) window.location.href = new URL(destination, window.location.href).href;
+            if (destination) {
+              const nextPage = getClientPageHref(destination, location.url);
+              if (nextPage) await navigate(nextPage);
+              else window.location.href = new URL(destination, window.location.href).href;
+            }
           }
 
           const editorTool = target.closest<HTMLButtonElement>('.mc-tool');
@@ -679,7 +727,9 @@ export const PageView = component$((props: { path: string }) => {
             const destination = researchCard.dataset.href;
             if (destination) {
               event.preventDefault();
-              window.location.href = new URL(destination, window.location.href).href;
+              const nextPage = getClientPageHref(destination, location.url);
+              if (nextPage) void navigate(nextPage);
+              else window.location.href = new URL(destination, window.location.href).href;
             }
           }
           if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {

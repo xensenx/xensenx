@@ -66,12 +66,36 @@ function removeElementById(html: string, tagName: string, id: string): string {
   return end === -1 ? html : html.slice(0, opening.index) + html.slice(end);
 }
 
+function sourcePathFromUrl(pathname: string): string {
+  const path = pathname.replace(/^\/+|\/+$/g, '');
+  if (!path || path === 'index' || path === 'index.html') return 'index.html';
+  return path.endsWith('.html') ? path : `${path}.html`;
+}
+
+function routeFromSourcePath(path: string): string {
+  return path === 'index.html' ? '/' : `/${path.slice(0, -5)}/`;
+}
+
+function cleanInternalLinks(body: string, sourcePath: string): string {
+  const pageUrl = new URL(routeFromSourcePath(sourcePath), SITE_ORIGIN);
+  return body.replace(/(<a\b[^>]*\bhref\s*=\s*)(["'])(.*?)\2/gi, (match, prefix: string, quote: string, href: string) => {
+    try {
+      const target = new URL(href, pageUrl);
+      if (target.origin !== SITE_ORIGIN) return match;
+      const targetSourcePath = sourcePathFromUrl(target.pathname);
+      if (!pageFiles[`/src/content/pages/${targetSourcePath}`]) return match;
+      return `${prefix}${quote}${routeFromSourcePath(targetSourcePath)}${target.search}${target.hash}${quote}`;
+    } catch {
+      return match;
+    }
+  });
+}
+
 function buildPage(path: string, source: string): SitePage {
   const title = decodeHtmlEntities(source.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || 'xensenx');
   const descriptionTag = source.match(/<meta\b[^>]*\bname=["']description["'][^>]*>/i)?.[0] || '';
   const description = attr(descriptionTag, 'content') || 'Sen’s corner of the internet.';
-  const canonicalTag = source.match(/<link\b[^>]*\brel=["']canonical["'][^>]*>/i)?.[0] || '';
-  const canonical = attr(canonicalTag, 'href') || `${SITE_ORIGIN}/${path}`;
+  const canonical = `${SITE_ORIGIN}${routeFromSourcePath(path)}`;
   const styles = Array.from(source.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi), (match) => match[1]);
   const bodyMatch = source.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i);
   let body = bodyMatch?.[1] || '';
@@ -85,6 +109,7 @@ function buildPage(path: string, source: string): SitePage {
   body = removeElementById(body, 'div', 'settings-modal');
   body = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
   body = body.replace(/((?:src|href)=["'])(?:\.\.\/)*assets\//gi, '$1/assets/');
+  body = cleanInternalLinks(body, path);
   body = body.trim();
 
   return {
@@ -102,13 +127,16 @@ function buildPage(path: string, source: string): SitePage {
 }
 
 export function getPage(pathname: string): SitePage | undefined {
-  const path = pathname.replace(/^\/+/, '') || 'index.html';
+  const path = sourcePathFromUrl(pathname);
   const source = pageFiles[`/src/content/pages/${path}`];
   return source ? buildPage(path, source) : undefined;
 }
 
 export function getPagePaths(): string[] {
-  return Object.keys(pageFiles).map((file) => file.replace('/src/content/pages/', ''));
+  return Object.keys(pageFiles)
+    .map((file) => file.replace('/src/content/pages/', ''))
+    .filter((path) => path !== 'index.html')
+    .map((path) => path.slice(0, -5));
 }
 
 export function getPageHead(page: SitePage | undefined): DocumentHeadValue {

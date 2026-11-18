@@ -13,8 +13,8 @@ export default extendConfig(baseConfig, () => ({
     staticAdapter({
       origin: 'https://xensenx.dev',
       sitemapOutFile: null,
-      // Keep Qwik from writing `page.html/q-data.json`, which conflicts with the existing .html routes.
-      emitData: false,
+      // Clean extensionless routes keep Qwik's route-data files beside, not inside, the HTML files.
+      emitData: true,
     }),
   ],
 }));

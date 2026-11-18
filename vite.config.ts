@@ -32,7 +32,7 @@ const stripDevRequestEvent = {
 };
 
 export default defineConfig(() => ({
-  plugins: [qwikCity({ trailingSlash: false }), stripDevRequestEvent, qwikVite()],
+  plugins: [qwikCity({ trailingSlash: true }), stripDevRequestEvent, qwikVite()],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },

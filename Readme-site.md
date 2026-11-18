@@ -1,6 +1,6 @@
 # xensenx.dev
 
-This site uses Qwik City for its routes and shared interface. The existing `.html` page URLs are still the route URLs; the original page documents now live under `src/content/pages/` and are rendered inside Qwik pages.
+This site uses Qwik City for its routes and shared interface. Pages use clean trailing-slash URLs for client-side navigation; legacy `.html` URLs permanently redirect to their matching clean routes. The original page documents live under `src/content/pages/` and are rendered inside Qwik pages.
 
 ## Development
 
