@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
-import { getPage, getPageHead } from '../content/pages';
+import { getSitePageHead } from '../content/site-pages';
 import { PageView } from '../components/site-shell';
 
-export default component$(() => <PageView path="index.html" />);
+export default component$(() => <PageView path="/" />);
 
-export const head = getPageHead(getPage('index.html'));
+export const head = getSitePageHead('/');
