@@ -69,6 +69,7 @@ export function initMindWaves(canvas: HTMLCanvasElement, wrap: HTMLElement): () 
   if (!ctx) return () => undefined;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const compactViewport = window.matchMedia('(max-width: 760px)');
   let width = 0;
   let height = 0;
   let dpr = 1;
@@ -84,7 +85,7 @@ export function initMindWaves(canvas: HTMLCanvasElement, wrap: HTMLElement): () 
     const rect = wrap.getBoundingClientRect();
     width = rect.width;
     height = rect.height;
-    dpr = Math.min(window.devicePixelRatio || 1, 1.6);
+    dpr = Math.min(window.devicePixelRatio || 1, compactViewport.matches ? 1.2 : 1.6);
     canvas.width = Math.max(1, Math.round(width * dpr));
     canvas.height = Math.max(1, Math.round(height * dpr));
     canvas.style.width = `${width}px`;
@@ -227,6 +228,10 @@ export function initMindWaves(canvas: HTMLCanvasElement, wrap: HTMLElement): () 
 
   const loop = (timestamp: number) => {
     if (!running) return;
+    if (compactViewport.matches && lastFrame && timestamp - lastFrame < 1000 / 30) {
+      frame = requestAnimationFrame(loop);
+      return;
+    }
     const delta = lastFrame ? clamp((timestamp - lastFrame) / 1000, 0.001, 0.064) : 0.016;
     lastFrame = timestamp;
     draw(timestamp, delta);

@@ -26,8 +26,8 @@ export function initContactFlow(host: HTMLElement, canvas: HTMLCanvasElement): (
   let nextDropFromA = true;
 
   const positionNodes = () => {
-    nodeA.x = width * 0.74; nodeA.y = height * 0.4;
-    nodeB.x = width * 0.96; nodeB.y = height * 0.62;
+    nodeA.x = width * 0.72; nodeA.y = height * 0.4;
+    nodeB.x = width * 0.92; nodeB.y = height * 0.62;
   };
   const resize = () => {
     const rect = host.getBoundingClientRect();
@@ -76,7 +76,7 @@ export function initContactFlow(host: HTMLElement, canvas: HTMLCanvasElement): (
 
   const draw = (time: number, delta: number) => {
     if (!width || !height) return;
-    const color = '88, 166, 255';
+    const color = '96, 160, 240';
     ctx.clearRect(0, 0, width, height);
     const pointA = nodePosition(nodeA, time);
     const pointB = nodePosition(nodeB, time);

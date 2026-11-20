@@ -7,7 +7,7 @@ export default component$(() => (
   <QwikCityProvider>
     <head>
       <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta name="color-scheme" content="dark" />
       <link rel="icon" type="image/svg+xml" href="/assets/site_icons/Site_icon.svg" />
       <link rel="icon" type="image/x-icon" href="/assets/site_icons/favicon.ico" sizes="16x16 32x32 48x48" />

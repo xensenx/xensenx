@@ -1,15 +1,30 @@
 import { component$, $, useSignal, useVisibleTask$, type Signal } from '@builder.io/qwik';
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { getSitePage } from '../content/site-pages';
+import { DICTIONARY_VERSION, SPLIT_DICTIONARY_PREFIXES } from '../content/dictionary-version';
 
 type DialogKind = 'about' | 'email' | undefined;
 type DictionaryMeaning = { pos: string; def: string; ex?: string[] };
 type DictionaryEntry = { m?: DictionaryMeaning[]; syn?: string[]; ant?: string[] };
-type DictionaryResult = { word: string; entry: DictionaryEntry | null };
+type DictionaryResult = { word: string; entry: DictionaryEntry | null; loading: boolean };
 
 const EMAIL = 'hello@xensenx.dev';
 const NAVIGATION_STACK_KEY = 'xsn_navigation_stack';
 const WORK_TAB_KEY = 'xsn_work_tab';
+const dictionaryChunkRequests = new Map<string, Promise<Record<string, DictionaryEntry> | null>>();
+
+function getDictionaryChunk(prefix: string) {
+  const existing = dictionaryChunkRequests.get(prefix);
+  if (existing) return existing;
+
+  const safePrefix = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i.test(prefix) ? `${prefix}_` : prefix;
+  const request = fetch(`/assets/dict/${safePrefix}.json?v=${DICTIONARY_VERSION}`, { cache: 'force-cache' })
+    .then(async (response) => response.ok ? await response.json() as Record<string, DictionaryEntry> : null)
+    .catch(() => null)
+    .finally(() => dictionaryChunkRequests.delete(prefix));
+  dictionaryChunkRequests.set(prefix, request);
+  return request;
+}
 
 type PreviousPage = { url: string; x: number; y: number };
 
@@ -59,26 +74,73 @@ function activateWorkTab(root: HTMLElement, tabId: string) {
 }
 
 export const SiteHeader = component$((props: { active: string }) => (
-  <header class="site-header">
-    <div class="site-nav-wrap">
-      <details class="site-brand-dropdown">
-        <summary class="site-brand-trigger" aria-label="Open xensenx menu">
-          <span>xensenx</span><span class="site-brand-caret" aria-hidden="true">▾</span>
-        </summary>
-        <nav class="site-brand-menu" aria-label="Site menu">
-          <Link class="site-brand-menu-item" href="/about-site/">about site</Link>
-          <Link class="site-brand-menu-item" href="/privacy/">privacy policy</Link>
-          <Link class="site-brand-menu-item" href="/sitemap/">sitemap</Link>
+  <>
+    <header class="site-header">
+      <div class="site-nav-wrap">
+        <details class="site-brand-dropdown">
+          <summary class="site-brand-trigger" aria-label="Open xensenx menu">
+            <span>xensenx</span><span class="site-brand-caret" aria-hidden="true">▾</span>
+          </summary>
+          <nav class="site-brand-menu" aria-label="Site menu">
+            <Link class="site-brand-menu-item" href="/about-site/">about site</Link>
+            <Link class="site-brand-menu-item" href="/privacy/">privacy policy</Link>
+            <Link class="site-brand-menu-item" href="/sitemap/">sitemap</Link>
+          </nav>
+        </details>
+        <nav class="site-nav" aria-label="Main navigation">
+          <Link href="/" aria-current={props.active === 'home' ? 'page' : undefined}>mind</Link>
+          <Link href="/posts/" aria-current={props.active === 'posts' ? 'page' : undefined}>posts</Link>
+          <Link href="/work/" aria-current={props.active === 'work' ? 'page' : undefined}>work</Link>
+          <Link href="/contact/" aria-current={props.active === 'contact' ? 'page' : undefined}>contact</Link>
         </nav>
-      </details>
-      <nav class="site-nav" aria-label="Main navigation">
-        <Link href="/" aria-current={props.active === 'home' ? 'page' : undefined}>mind</Link>
-        <Link href="/posts/" aria-current={props.active === 'posts' ? 'page' : undefined}>posts</Link>
-        <Link href="/work/" aria-current={props.active === 'work' ? 'page' : undefined}>work</Link>
-        <Link href="/contact/" aria-current={props.active === 'contact' ? 'page' : undefined}>contact</Link>
+      </div>
+    </header>
+    <details class="mobile-nav-dropdown" onKeyDown$={(event) => {
+      const menu = (event.target as HTMLElement).closest<HTMLDetailsElement>('.mobile-nav-dropdown');
+      if (!menu) return;
+      if (event.key === 'Escape') {
+        menu.open = false;
+        menu.querySelector('summary')?.focus();
+      }
+      if (menu.open && event.key === 'Tab') {
+        const focusable = [...menu.querySelectorAll<HTMLElement>('.mobile-nav-trigger, .mobile-nav-link')];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    }}>
+      <summary class="mobile-nav-trigger" aria-label="Toggle main navigation" aria-controls="mobile-page-nav">
+        <span class="mobile-nav-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </summary>
+      <button class="mobile-nav-scrim" type="button" aria-label="Close navigation" onClick$={(event) => {
+        const menu = (event.target as HTMLElement).closest<HTMLDetailsElement>('.mobile-nav-dropdown');
+        if (menu) {
+          menu.open = false;
+          menu.querySelector('summary')?.focus();
+        }
+      }} />
+      <nav id="mobile-page-nav" class="mobile-nav-panel" aria-label="Mobile navigation" onClick$={(event) => {
+        if (!(event.target as HTMLElement).closest('a[href]')) return;
+        const menu = (event.target as HTMLElement).closest<HTMLDetailsElement>('.mobile-nav-dropdown');
+        if (menu) {
+          menu.open = false;
+          menu.querySelector('summary')?.focus();
+        }
+      }}>
+        <div class="mobile-nav-heading"><span class="eyebrow">navigate</span></div>
+        <Link class="mobile-nav-link" href="/" aria-current={props.active === 'home' ? 'page' : undefined}>mind</Link>
+        <Link class="mobile-nav-link" href="/posts/" aria-current={props.active === 'posts' ? 'page' : undefined}>posts</Link>
+        <Link class="mobile-nav-link" href="/work/" aria-current={props.active === 'work' ? 'page' : undefined}>work</Link>
+        <Link class="mobile-nav-link" href="/contact/" aria-current={props.active === 'contact' ? 'page' : undefined}>contact</Link>
       </nav>
-    </div>
-  </header>
+    </details>
+  </>
 ));
 
 export const SiteFooter = component$(() => (
@@ -113,7 +175,7 @@ const ContactDialog = component$((props: { kind: Signal<DialogKind>; copied: Sig
   if (!props.kind.value) return null;
   const about = props.kind.value === 'about';
   return (
-    <div class="dialog-backdrop is-open" role="presentation" onClick$={(event) => { if (event.target === event.currentTarget) close(); }}>
+    <div class="dialog-backdrop is-open" role="presentation" onClick$={(event) => { if ((event.target as HTMLElement).classList.contains('dialog-backdrop')) close(); }}>
       <section class="contact-dialog-panel contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-dialog-title">
         <div class="dialog-heading">
           <div><p class="eyebrow">{about ? 'Say hello' : 'Direct contact'}</p><h2 id="contact-dialog-title">{about ? 'Let’s talk.' : 'Mail directly.'}</h2></div>
@@ -138,6 +200,7 @@ export const PageView = component$((props: { path: string }) => {
   const dictionary = useSignal<DictionaryResult>();
   const dictionaryOpen = useSignal(false);
   const dictionaryCache = useSignal<Record<string, Record<string, DictionaryEntry> | null>>({});
+  const dictionaryLookupId = useSignal(0);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -261,7 +324,10 @@ export const PageView = component$((props: { path: string }) => {
 
   const lookupSelection = $(async (event: Event) => {
     if ((event.target as HTMLElement).closest('.dict-panel')) return;
-    await new Promise((resolve) => window.setTimeout(resolve, 260));
+    const lookupId = ++dictionaryLookupId.value;
+    // Let the browser finish the selection/click pair before deciding whether
+    // the user selected one word or cleared the selection.
+    await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
     const selection = window.getSelection();
     const selected = selection?.toString().trim() || '';
     const withinPage = selection?.anchorNode?.parentElement && pageRoot.value?.contains(selection.anchorNode.parentElement);
@@ -270,20 +336,22 @@ export const PageView = component$((props: { path: string }) => {
       dictionaryOpen.value = false;
       return;
     }
-    const letter = /^[a-z]/.test(word[0]) ? word[0] : '_other';
-    let words = dictionaryCache.value[letter];
-    if (words === undefined && !Object.prototype.hasOwnProperty.call(dictionaryCache.value, letter)) {
-      try {
-        const response = await fetch(`/assets/dict/${letter}.json`);
-        words = response.ok ? await response.json() as Record<string, DictionaryEntry> : null;
-        dictionaryCache.value = { ...dictionaryCache.value, [letter]: words };
-      } catch {
-        words = null;
-        dictionaryCache.value = { ...dictionaryCache.value, [letter]: null };
-      }
-    }
-    dictionary.value = { word, entry: words?.[word] || null };
+    if (lookupId !== dictionaryLookupId.value) return;
+
+    const basePrefix = /^[a-z]{2}/.test(word) ? word.slice(0, 2) : '_other';
+    const prefix = SPLIT_DICTIONARY_PREFIXES.has(basePrefix)
+      ? (/^[a-z]{3}/.test(word) ? word.slice(0, 3) : `${basePrefix}_short`)
+      : basePrefix;
+    const hasCachedChunk = Object.prototype.hasOwnProperty.call(dictionaryCache.value, prefix);
+    let words = dictionaryCache.value[prefix];
+    dictionary.value = { word, entry: words?.[word] || null, loading: !hasCachedChunk };
     dictionaryOpen.value = true;
+
+    if (hasCachedChunk) return;
+    words = await getDictionaryChunk(prefix);
+    dictionaryCache.value = { ...dictionaryCache.value, [prefix]: words };
+    if (lookupId !== dictionaryLookupId.value || !dictionaryOpen.value || dictionary.value?.word !== word) return;
+    dictionary.value = { word, entry: words?.[word] || null, loading: false };
   });
 
   if (!page) {
@@ -367,8 +435,7 @@ export const PageView = component$((props: { path: string }) => {
           if (status?.classList.contains('mc-status-error')) { status.classList.remove('mc-status-error'); status.textContent = ''; }
         }}
         onMouseDown$={(event) => { if ((event.target as HTMLElement).closest('.mc-tool')) event.preventDefault(); }}
-        onMouseUp$={lookupSelection}
-        onTouchEnd$={lookupSelection}
+        onPointerUp$={lookupSelection}
         onKeyDown$={async (event) => {
           const card = (event.target as HTMLElement).closest<HTMLElement>('.research-card');
           if (card && !(event.target as HTMLElement).closest('a, button') && (event.key === 'Enter' || event.key === ' ')) {
@@ -549,11 +616,11 @@ export const PageView = component$((props: { path: string }) => {
           {dictionary.value && (
             <>
               <div class="dict-heading"><span class="dict-word">{dictionary.value.word}</span><button id="dict-close" class="icon-button" type="button" tabIndex={dictionaryOpen.value ? 0 : -1} aria-label="Close definition">×</button></div>
-              {dictionary.value.entry?.m?.length ? dictionary.value.entry.m.slice(0, 4).map((meaning, index) => (
+              {dictionary.value.loading ? <p class="dict-loading" role="status">Looking up...</p> : dictionary.value.entry?.m?.length ? dictionary.value.entry.m.slice(0, 4).map((meaning, index) => (
                 <div class="dict-def" key={`${meaning.pos}-${index}`}><span class="dict-pos">{meaning.pos}</span><p class="dict-deftext">{meaning.def}</p>{meaning.ex?.[0] && <p class="dict-ex">“{meaning.ex[0]}”</p>}</div>
               )) : <p class="dict-empty">No definition found.</p>}
-              {dictionary.value.entry?.syn?.length ? <p class="dict-section"><span class="dict-label">Synonyms</span>{dictionary.value.entry.syn.join(', ')}</p> : null}
-              {dictionary.value.entry?.ant?.length ? <p class="dict-section"><span class="dict-label">Antonyms</span>{dictionary.value.entry.ant.join(', ')}</p> : null}
+              {!dictionary.value.loading && dictionary.value.entry?.syn?.length ? <p class="dict-section"><span class="dict-label">Synonyms</span>{dictionary.value.entry.syn.join(', ')}</p> : null}
+              {!dictionary.value.loading && dictionary.value.entry?.ant?.length ? <p class="dict-section"><span class="dict-label">Antonyms</span>{dictionary.value.entry.ant.join(', ')}</p> : null}
             </>
           )}
         </aside>
